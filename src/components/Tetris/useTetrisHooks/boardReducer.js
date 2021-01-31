@@ -1,7 +1,7 @@
 
 import produce from 'immer'
-import { emptyBoard } from './assets/emptyBoard.js'
-import { buildInWaiting } from './assets/buildInWaiting.js'
+import { emptyBoard } from '../assets/emptyBoard.js'
+import { buildInWaiting } from '../assets/buildInWaiting.js'
 
 const initBoard = {
     board: emptyBoard,
