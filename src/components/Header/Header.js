@@ -1,12 +1,25 @@
 
-
+import './_header.css'
 import React from 'react'
 
+import Typewriter from 'typewriter-effect'
+
+
 function Header() {
+
 return (
 <>
 <div className='header_cont'>
-    <h1 className='header_title'>Tetris</h1>
+    <Typewriter
+    onInit={(typewriter) => {
+        typewriter.start().changeDelay(20).changeDeleteSpeed(10)
+        .typeString('let\'s play...')
+        .deleteAll()
+        .typeString('Tetris')
+
+    }
+
+    } />
 </div>
 </>
 )

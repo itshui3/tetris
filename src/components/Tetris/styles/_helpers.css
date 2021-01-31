@@ -1,0 +1,16 @@
+
+
+.helpers_cont {
+    position: absolute;
+    z-index: 5;
+
+    top: 105%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+}
+
+.helpers_btn {
+    margin: 8px;
+}

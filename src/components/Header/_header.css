@@ -1,8 +1,19 @@
 
 .header_cont {
+    border: 1px solid black;
 
+    width: 100%;
+    height: 12%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center
 }
 
-.header_title {
-    
-}
+/* how to style Typewriter? */
+/* .header_title .Typewriter {
+    border: 1px solid black;
+    font-size: 1.5rem;
+
+    letter-spacing: 2rem;
+} */
