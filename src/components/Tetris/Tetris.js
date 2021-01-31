@@ -29,6 +29,8 @@ function Tetris() {
     const [boardState, dispatchBoard] = useReducer(boardReducer, initBoard)
 
     useEffect(() => {
+        // when active pc falls, kill it
+        // this useEffect will handle by pulling active
         if (!boardState.activePc.length) { dispatchBoard({ type: PULL_ACTIVE }) }
         // init case, but also reset case
         if (!boardState.inWaitingPc.length) { dispatchBoard({ type: BUILD_IN_WAITING }) }
