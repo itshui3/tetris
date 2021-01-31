@@ -26,8 +26,8 @@ const { PULL_ACTIVE, BUILD_IN_WAITING, KILL_ACTIVE } = BOARD_ACTIONS
 
 function Tetris() {
 
+    // batch this into a custom hook
     const [boardState, dispatchBoard] = useReducer(boardReducer, initBoard)
-
     useEffect(() => {
         // when active pc falls, kill it
         // this useEffect will handle by pulling active
