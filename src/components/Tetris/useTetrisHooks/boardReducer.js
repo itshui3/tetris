@@ -59,7 +59,6 @@ const boardReducer = (state, { type, payload }) => {
             return state
 
         case RIGHT: 
-            console.log('reg keyPress: RIGHT')
             const moveRightObj = canHasMovement(state.board, state.activePc, type)
             return produce(state, draft => {
                 if (moveRightObj.canHas) {
@@ -73,8 +72,12 @@ const boardReducer = (state, { type, payload }) => {
 
         case LEFT: 
             console.log('reg keyPress: LEFT')
-            canHasMovement(state.board, state.activePc, type)
-            return state
+            const moveLeftObj = canHasMovement(state.board, state.activePc, type)
+            return produce(state, draft => {
+                if (moveLeftObj.canHas) {
+                    draft.activePc = moveLeftObj.pos
+                }
+            })
 
         default:
             return state
