@@ -3,6 +3,8 @@ import './styles/_helpers.css'
 import './styles/_tetrisBoard.css'
 import React, { useEffect } from 'react'
 
+import KeyboardEventHandler from 'react-keyboard-event-handler';
+
 // cell style factories
 // (stateAssets): renderUI
 import { rightBorder, bottomBorder } from './assets/borderFactory.js'
@@ -18,14 +20,32 @@ import {
 
 const { KILL_ACTIVE } = BOARD_ACTIONS
 
+const controls = {
+    'e': BOARD_ACTIONS.UP,
+    'f': BOARD_ACTIONS.RIGHT,
+    'd': BOARD_ACTIONS.DOWN,
+    's': BOARD_ACTIONS.LEFT,
+}
+
 function Tetris() {
 
     const [boardState, dispatchBoard] = useTetris(boardReducer, initBoard)
+    // [e, f, d, s] - dispatchKeyActions
 
-    useEffect(() => {
-        console.log('in compo boardState:', boardState)
-        console.log('in compo dispatch:', dispatchBoard)
-    }, [])
+    // e - idk what htis supposed to do
+    // f - move pc one unit right
+    // s - move pc one unit down
+    // d - move pc one unit left
+    const receiveKeyPress = (key) => {
+        // listen for key actions
+        console.log('in receive keypress', key)
+        dispatchBoard({ type: controls[key] })
+    }
+
+    // useEffect(() => {
+    //     console.log('in compo boardState:', boardState)
+    //     console.log('in compo dispatch:', dispatchBoard)
+    // }, [])
 
 return (
 <>
@@ -55,6 +75,12 @@ boardState.board.map((row, r_idx) => (
 </div>
 ))
 }
+
+{/* key handling */}
+<KeyboardEventHandler
+handleKeys={['e', 'f', 'd', 's']}
+onKeyEvent={(key, e) => receiveKeyPress(key)} 
+/>
 
 {/* helper buttons */}
 <div className='helpers_cont'>

@@ -9,7 +9,7 @@ const { PULL_ACTIVE, BUILD_IN_WAITING } = BOARD_ACTIONS
 
 
 export const usePcs = (reducer, init) => {
-
+    // point at which initialize reducer && assets
     const [boardState, dispatchBoard] = useBoard(reducer, init)
 
     useEffect(() => {
