@@ -1,32 +1,70 @@
-<h1>Tetris</h1>
-<b>capstone project to my own side-project journey</b>
+# Getting Started with Create React App
 
-Tasks: 
-<h2>[0] : ideate:</h2> <b>https://www.figma.com/file/c0gEFa1p9FW7zXabF8VuBb/Tetris-Ideas</b>
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Dev Stories: Like user stories, but chunked for progression meaningful to me rather than user-facing features. 
-<h3>[0] : Piece placement. active vs. in-waiting vs static pieces and how they exist(or DO they exist....)</h3>
-  <p>- hold active piece outside of board itself as a coordinates object</p>
-  <p>- both active && static pieces can be represented by 1, </p>
-  <p>therefore to line validate later I can simply if(line) and use the boolean nature of 0/1</p>
-  <p>0's being empty spaces</p>
-  <p>1's being static, or instantiated pieces</p>
-  
-------------------------------------- stop thinking about the stuff below this line --------------------------------------------<br />
-<h3>[1] : Drop protocol & piece instantiation. </h3>
-  <p>- expects always 1 active piece & 1 piece in-waiting</p>
-  <p>- when active piece 'lands' => ie. bottoms out y-axis or 'runs into' inactive pc, piece should become inactive</p>
-    <p>=> expects board to notice no current active pc && game not ended, spawn next active pc && randomize piece in-waiting</p>
-    <p>?=> how can I handle initial spawn of active/in-waiting vs. re-instantiation with the same system?</p>
-<h3>[2] : Line validation, consupmtion, and effects. </h3>
-  <p>- perform check whenever piece instantiation occurs to determine: </p>
-    <p>=> are there lines?</p>
-    <p>=> how many? </p>
-    <p>?=> how do I handle static pieces dropping due to lineConsumption? </p>
-    <p>?=> determine pieces that need to drop. pieces with gaps underneath, vs ground pulled out from under[check how actual tetris does this]</p>
-    <p>?=> how do I handle lines that occur due to previous lines being emptied out? should they be treated as part of a combo? </p>
-      <p>!=> we can do comboAmt as a point multiplier!! </p>
-      <p>!=> maybe if the staticDrop occurs recursively off consumption/validation </p>
-      <p><i>I can pass combo-chain info and create a visual sequence of events as well as calculate points</i></p>
-      <p>point calculation protocol: each instance of lineConsumption should increase points</p>
-      <p>because the comboChain paradigm makes point-accumulation non-linear, the proceeding point gain can occur as a product of curComboAmt * linesConsumed</p>
+## Available Scripts
+
+In the project directory, you can run:
+
+### `yarn start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
+
+### `yarn test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `yarn build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `yarn eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `yarn build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
