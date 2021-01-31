@@ -1,39 +1,31 @@
 
 import './styles/_helpers.css'
 import './styles/_tetrisBoard.css'
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect } from 'react'
 
 // cell style factories
 // (stateAssets): renderUI
 import { rightBorder, bottomBorder } from './assets/borderFactory.js'
 import { isStaticPc, isActivePc } from './assets/cellRender.js'
-/* 
-isActivePc(
-    boardState.activePc,
-    [r_idx, c_idx].
-): {
-    backgroundColor: 'black'
-} || {}
-*/
 
-// board reducer assets
+// tetris state assets
 import {
+    useTetris,
     initBoard,
     BOARD_ACTIONS,
     boardReducer,
-} from './boardReducer.js'
-const { PULL_ACTIVE, BUILD_IN_WAITING, KILL_ACTIVE } = BOARD_ACTIONS
+} from './useTetrisHooks'
+
+const { KILL_ACTIVE } = BOARD_ACTIONS
 
 function Tetris() {
 
-    const [boardState, dispatchBoard] = useReducer(boardReducer, initBoard)
+    const [boardState, dispatchBoard] = useTetris(boardReducer, initBoard)
 
     useEffect(() => {
-        if (!boardState.activePc.length) { dispatchBoard({ type: PULL_ACTIVE }) }
-        // init case, but also reset case
-        if (!boardState.inWaitingPc.length) { dispatchBoard({ type: BUILD_IN_WAITING }) }
-
-    }, [boardState])
+        console.log('in compo boardState:', boardState)
+        console.log('in compo dispatch:', dispatchBoard)
+    }, [])
 
 return (
 <>
@@ -51,6 +43,8 @@ boardState.board.map((row, r_idx) => (
             ...bottomBorder(r_idx),
             ...isStaticPc(cell),
             ...isActivePc(boardState.activePc, [r_idx, c_idx])
+            // perhaps these render protocols can be bundled: 
+            // ie. [bordering(c_idx, r_idx) && isPc(isStaticPc, isActivePc)]
         }}
         >
 

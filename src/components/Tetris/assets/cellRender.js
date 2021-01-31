@@ -19,7 +19,7 @@ const isActivePc = (activeCoords, cellCoords) => {
             return {
                 backgroundColor: 'black'
             }
-        } else { return {} }
+        } else { return style }
         
     }, {})
 }

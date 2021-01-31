@@ -1,7 +1,7 @@
 
 import produce from 'immer'
-import { emptyBoard } from './assets/emptyBoard.js'
-import { buildInWaiting } from './assets/buildInWaiting.js'
+import { emptyBoard } from '../assets/emptyBoard.js'
+import { buildInWaiting } from '../assets/buildInWaiting.js'
 
 const initBoard = {
     board: emptyBoard,
@@ -25,17 +25,9 @@ const { BUILD_IN_WAITING, PULL_ACTIVE, KILL_ACTIVE } = BOARD_ACTIONS
 const boardReducer = (state, { type, action }) => {
 
     switch(type) {
-        /*
-
-        [0] - PULL_ACTIVE => console.log(activePc)
-        [1] - BUILD_IN_WAITING => console.log(activePc)
-        things change? 
-        */
 
         case PULL_ACTIVE: 
             return produce(state, draft => {
-                // does this assignment action leave me vulnerable
-                // to mutations? 
                 draft.activePc = draft.inWaitingPc
                 draft.inWaitingPc = buildInWaiting()
             })
