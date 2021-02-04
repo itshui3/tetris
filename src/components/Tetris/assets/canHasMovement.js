@@ -15,7 +15,6 @@ const {
 } = BOARD_ACTIONS
 
 export const canHasMovement = (board, activePc, dir) => {
-    console.log(`in canHasMovement keyPress: ${dir}`)
     // receive (board, activePc)
     // if !activePc.lenght return false
     if (!activePc.length) { 
@@ -24,37 +23,15 @@ export const canHasMovement = (board, activePc, dir) => {
     }
 
     // dir: [UP, RIGHT, DOWN, LEFT] - helper validates against ACTIONS
-    if (dir === RIGHT) {
 
-        return activePc.reduce( (prev, block, idx) => {
-            if (!prev.canHas) { return prev }
-
-            const blockY = block[0]
-            const blockX = block[1]
-            // wall collision check
-            if (blockX + 1 >= board[0].length) {
-                return produce(prev, draft => {
-                    draft.canHas = false
-                    draft.pos = []
-                })
+    /* reduce to check individual parts, returns: 
+        expect: moveDown1Obj : {
+            canHas: boolean,
+            pos: Array(1) [y, x]
             }
-            // pc collision check
-            else if (board[blockY, blockX+1] === 1) {
-                return produce(prev, draft => {
-                    draft.canHas = false
-                    draft.pos = []
-                })
-            } else {
-                return produce(prev, draft => {
-                    draft.pos = [...draft.pos, [blockY, blockX+1]]
-                })
-            }
+    */
 
-            
-        }, { canHas: true, pos: [] })
-
-    } else if (dir === LEFT) {
-
+   if (dir === LEFT) {
         return activePc.reduce( (prev, block, idx) => {
             if (!prev.canHas) { return prev }
 
@@ -69,7 +46,7 @@ export const canHasMovement = (board, activePc, dir) => {
                 })
             }
             // pc collision check
-            else if (board[blockY, blockX-1] === 1) {
+            else if (board[blockY][blockX-1] === 1) {
                 return produce(prev, draft => {
                     draft.canHas = false
                     draft.pos = []
@@ -83,9 +60,68 @@ export const canHasMovement = (board, activePc, dir) => {
             
         }, { canHas: true, pos: [] })
 
-    } else if (dir === DOWN) {
+    } 
 
-        // handle down keypress case
+    if (dir === RIGHT) {
+        return activePc.reduce( (prev, block, idx) => {
+            if (!prev.canHas) { return prev }
+
+            const blockY = block[0]
+            const blockX = block[1]
+            // wall collision check
+            if (blockX + 1 >= board[0].length) {
+                return produce(prev, draft => {
+                    draft.canHas = false
+                    draft.pos = []
+                })
+            }
+            // pc collision check
+            else if (board[blockY][blockX+1] === 1) {
+                return produce(prev, draft => {
+                    draft.canHas = false
+                    draft.pos = []
+                })
+            } else {
+                return produce(prev, draft => {
+                    draft.pos = [...draft.pos, [blockY, blockX+1]]
+                })
+            }
+
+            
+        }, { canHas: true, pos: [] })
+
+    } 
+    
+    if (dir === DOWN) {
+        return activePc.reduce( (prev, block, idx) => {
+            if (!prev.canHas) { return prev }
+
+            const blockY = block[0]
+            const blockX = block[1]
+
+            // floor collision check
+            if (blockY + 1 >= board.length) {
+                return produce(prev, draft => {
+                    draft.canHas = false
+                    draft.pos = []
+                })
+
+            // staticPc collision check
+            } else if (board[blockY+1][blockX] === 1) {
+
+                return produce(prev, draft => {
+                    draft.canHas = false
+                    draft.pos = []
+                })
+
+            // render pc next pos returned with next acc/prev
+            } else {
+                return produce(prev, draft => {
+                    draft.pos = [...draft.pos, [blockY+1, blockX]]
+                })
+            }
+
+        }, { canHas: true, pos: [] })
 
     }
 

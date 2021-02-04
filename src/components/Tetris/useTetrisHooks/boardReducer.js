@@ -3,6 +3,7 @@ import produce from 'immer'
 import { emptyBoard } from '../assets/emptyBoard.js'
 import { buildInWaiting } from '../assets/buildInWaiting.js'
 import { canHasMovement } from '../assets/canHasMovement'
+import { transformPc } from '../assets/transformPc'
 
 const initBoard = {
     board: emptyBoard,
@@ -60,6 +61,7 @@ const boardReducer = (state, { type, payload }) => {
 
         case RIGHT: 
             const moveRightObj = canHasMovement(state.board, state.activePc, type)
+            console.log('moveRightObj', moveRightObj)
             return produce(state, draft => {
                 if (moveRightObj.canHas) {
                     draft.activePc = moveRightObj.pos
@@ -67,11 +69,29 @@ const boardReducer = (state, { type, payload }) => {
             })
 
         case DOWN: 
-            console.log('reg keyPress: DOWN')
+            const moveDown1Obj = canHasMovement(state.board, state.activePc, type)
+            // cases: 
+            // [0] check if movement is possible
+                /* canHasMovement => expect: moveDown1Obj : {
+                    canHas: boolean,
+                    pos: Array(1) [y, x]
+                }
+                */
+
+            if (moveDown1Obj.canHas) {
+                return produce(state, draft => {
+                    draft.activePc = moveDown1Obj.pos
+                })
+            }
+
+            // [1] if movement not possible, perform transform instead
+                /* transformPc => expect: transformedBoard
+
+                */
+
             return state
 
         case LEFT: 
-            console.log('reg keyPress: LEFT')
             const moveLeftObj = canHasMovement(state.board, state.activePc, type)
             return produce(state, draft => {
                 if (moveLeftObj.canHas) {

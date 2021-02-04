@@ -38,7 +38,6 @@ function Tetris() {
     // d - move pc one unit left
     const receiveKeyPress = (key) => {
         // listen for key actions
-        console.log('in receive keypress', key)
         dispatchBoard({ type: controls[key] })
     }
 
