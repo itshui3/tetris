@@ -4,20 +4,23 @@ const length = {
     col: 10
 }
 
-const rightBorder = (c_idx) => { 
+const determineBorder = (r_idx, c_idx) => {
+    let borderObj = {}
 
     if (c_idx < length.col) { 
-        return { borderBottom: '1px solid black' }
-    } else { return {} }
+        borderObj = { borderBottom: '1px solid black' }
+    }
 
-}
-const bottomBorder = (r_idx) => { 
     if (r_idx < length.row) { 
-        return { borderRight: '1px solid black' }
-    } else { return {} }
+        borderObj = {
+            ...borderObj,
+            borderRight: '1px solid black'
+        }
+    }
+
+    return borderObj
 }
 
 export {
-    rightBorder,
-    bottomBorder
+    determineBorder
 }
