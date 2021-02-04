@@ -7,8 +7,8 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 // cell style factories
 // (stateAssets): renderUI
-import { rightBorder, bottomBorder } from './assets/borderFactory.js'
-import { isStaticPc, isActivePc } from './assets/cellRender.js'
+import { determineBorder } from './assets/borderFactory.js'
+import { isAPc } from './assets/cellRender.js'
 
 // tetris state assets
 import {
@@ -42,11 +42,6 @@ function Tetris() {
         dispatchBoard({ type: controls[key] })
     }
 
-    // useEffect(() => {
-    //     console.log('in compo boardState:', boardState)
-    //     console.log('in compo dispatch:', dispatchBoard)
-    // }, [])
-
 return (
 <>
 <div className='tetris_cont'>
@@ -55,16 +50,12 @@ return (
 boardState.board.map((row, r_idx) => (
 <div className='board_row' key={r_idx}>
     {
-        row.map((cell, c_idx) => (
+        row.map((staticCell, c_idx) => (
 
         <div className='board_cell' key={c_idx}
         style={{ 
-            ...rightBorder(c_idx), 
-            ...bottomBorder(r_idx),
-            ...isStaticPc(cell),
-            ...isActivePc(boardState.activePc, [r_idx, c_idx])
-            // perhaps these render protocols can be bundled: 
-            // ie. [bordering(c_idx, r_idx) && isPc(isStaticPc, isActivePc)]
+            ...determineBorder(r_idx, c_idx),
+            ...isAPc(staticCell, boardState.activePc, [r_idx, c_idx])
         }}
         >
 

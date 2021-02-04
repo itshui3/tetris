@@ -83,6 +83,10 @@ export const canHasMovement = (board, activePc, dir) => {
             
         }, { canHas: true, pos: [] })
 
+    } else if (dir === DOWN) {
+
+        // handle down keypress case
+
     }
 
 }
