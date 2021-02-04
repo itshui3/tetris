@@ -13,7 +13,12 @@ const initBoard = {
     ],
     inWaitingPc: [
         // same as above^^^
-    ]
+    ],
+
+    combo: 0,
+
+    points: 0
+
 }
 
 const BOARD_ACTIONS = {
@@ -82,6 +87,7 @@ const boardReducer = (state, { type, payload }) => {
                 return produce(state, draft => {
                     draft.board = transformPc(draft.activePc, draft.board)
                     draft.activePc = []
+                    draft.combo = 0
                 })
             }
 

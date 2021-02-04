@@ -10,6 +10,9 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { determineBorder } from './assets/borderFactory.js'
 import { isAPc } from './assets/cellRender.js'
 
+// line handling
+import { validateLine } from './assets/validateLine.js'
+
 // tetris state assets
 import {
     useTetris,
@@ -37,20 +40,14 @@ function Tetris() {
     // s - move pc one unit down
     // d - move pc one unit left
 
-    /* handles line validation async:
-        runs: when boardState.board updates
-        [0] on Init
-        [1] on pcTransform
-
-        expect: call validateLine()
-        validateLine should perform effects on setTimeout to stutter their effects
-        as well as recursively call itself upon validating line successfully
-        validateLine should also determine the number of lines & times it has
-        called itself
-    */
+    /* handles line validation async: */
     useEffect(() => {
         // what other cases will trigger this useEff?
         // [0] - init tetris case
+        const lineObj = validateLine(boardState.board, boardState.combo)
+        // lineObj: { lines: [...Rows], points }
+        console.log('lineObj returned in lineValidation useEff', lineObj)
+        
     }, [boardState.board])
 
     const receiveKeyPress = (key) => {
