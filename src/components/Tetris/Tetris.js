@@ -10,6 +10,9 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 import { determineBorder } from './assets/borderFactory.js'
 import { isAPc } from './assets/cellRender.js'
 
+// line handling
+import { validateLine } from './assets/validateLine.js'
+
 // tetris state assets
 import {
     useTetris,
@@ -36,6 +39,17 @@ function Tetris() {
     // f - move pc one unit right
     // s - move pc one unit down
     // d - move pc one unit left
+
+    /* handles line validation async: */
+    useEffect(() => {
+        // what other cases will trigger this useEff?
+        // [0] - init tetris case
+        const lineObj = validateLine(boardState.board, boardState.combo)
+        // lineObj: { lines: [...Rows], points }
+        console.log('lineObj returned in lineValidation useEff', lineObj)
+        
+    }, [boardState.board])
+
     const receiveKeyPress = (key) => {
         // listen for key actions
         dispatchBoard({ type: controls[key] })
