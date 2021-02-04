@@ -69,27 +69,21 @@ const boardReducer = (state, { type, payload }) => {
             })
 
         case DOWN: 
-            const moveDown1Obj = canHasMovement(state.board, state.activePc, type)
             // cases: 
-            // [0] check if movement is possible
-                /* canHasMovement => expect: moveDown1Obj : {
-                    canHas: boolean,
-                    pos: Array(1) [y, x]
-                }
-                */
-
+            // [0] validate => move()
+            const moveDown1Obj = canHasMovement(state.board, state.activePc, type)
             if (moveDown1Obj.canHas) {
                 return produce(state, draft => {
                     draft.activePc = moveDown1Obj.pos
                 })
+
+            // [1] transform(board)
+            } else {
+                return produce(state, draft => {
+                    draft.board = transformPc(draft.activePc, draft.board)
+                    draft.activePc = []
+                })
             }
-
-            // [1] if movement not possible, perform transform instead
-                /* transformPc => expect: transformedBoard
-
-                */
-
-            return state
 
         case LEFT: 
             const moveLeftObj = canHasMovement(state.board, state.activePc, type)
