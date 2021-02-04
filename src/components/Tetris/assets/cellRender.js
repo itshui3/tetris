@@ -1,14 +1,10 @@
 
 
-const isStaticPc = (c) => {
-    
+const isAPc = (c, activeCoords, cellCoords) => {
+    // check static pc
     if (c) return {
         backgroundColor: 'black'
     }
-    
-}
-
-const isActivePc = (activeCoords, cellCoords) => {
 
     const cell_y = cellCoords[0]
     const cell_x = cellCoords[1]
@@ -22,9 +18,10 @@ const isActivePc = (activeCoords, cellCoords) => {
         } else { return style }
         
     }, {})
+
+
 }
 
 export {
-    isStaticPc,
-    isActivePc,
+    isAPc,
 }
