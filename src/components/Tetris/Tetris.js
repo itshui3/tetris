@@ -36,6 +36,23 @@ function Tetris() {
     // f - move pc one unit right
     // s - move pc one unit down
     // d - move pc one unit left
+
+    /* handles line validation async:
+        runs: when boardState.board updates
+        [0] on Init
+        [1] on pcTransform
+
+        expect: call validateLine()
+        validateLine should perform effects on setTimeout to stutter their effects
+        as well as recursively call itself upon validating line successfully
+        validateLine should also determine the number of lines & times it has
+        called itself
+    */
+    useEffect(() => {
+        // what other cases will trigger this useEff?
+        // [0] - init tetris case
+    }, [boardState.board])
+
     const receiveKeyPress = (key) => {
         // listen for key actions
         dispatchBoard({ type: controls[key] })
