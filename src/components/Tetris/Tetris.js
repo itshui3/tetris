@@ -12,6 +12,7 @@ import { isAPc } from './assets/cellRender.js'
 
 // line handling
 import { validateLine } from './assets/validateLine.js'
+import { clearLines } from './assets/clearLines.js'
 
 // tetris state assets
 import {
@@ -30,24 +31,27 @@ const controls = {
     's': BOARD_ACTIONS.LEFT,
 }
 
+const lineActions = {
+    'highlight': BOARD_ACTIONS.HIGHLIGHT, 
+    'update': BOARD_ACTIONS.UPDATE,
+}
+
 function Tetris() {
 
     const [boardState, dispatchBoard] = useTetris(boardReducer, initBoard)
-    // [e, f, d, s] - dispatchKeyActions
 
-    // e - idk what htis supposed to do
-    // f - move pc one unit right
-    // s - move pc one unit down
-    // d - move pc one unit left
-
-    /* handles line validation async: */
     useEffect(() => {
-        // what other cases will trigger this useEff?
-        // [0] - init tetris case
         const lineObj = validateLine(boardState.board, boardState.combo)
         // lineObj: { lines: [...Rows], points }
-        console.log('lineObj returned in lineValidation useEff', lineObj)
         
+        if (lineObj.lines.size) {
+            dispatchBoard({ 
+                type: lineActions['update'], 
+                payload: clearLines(boardState.board, lineObj.lines)
+            })
+            // clearLines: updatedBoard: [...[...], etc]
+        }
+
     }, [boardState.board])
 
     const receiveKeyPress = (key) => {

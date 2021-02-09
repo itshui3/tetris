@@ -2,8 +2,10 @@
 
 const isAPc = (c, activeCoords, cellCoords) => {
     // check static pc
-    if (c) return {
-        backgroundColor: 'black'
+    if (c === 1) {
+        return { backgroundColor: 'black'}
+    } else if (c === 2) {
+        return { backgroundColor: 'pink'}
     }
 
     const cell_y = cellCoords[0]

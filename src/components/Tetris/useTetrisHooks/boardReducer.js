@@ -4,6 +4,7 @@ import { emptyBoard } from '../assets/emptyBoard.js'
 import { buildInWaiting } from '../assets/buildInWaiting.js'
 import { canHasMovement } from '../assets/canHasMovement'
 import { transformPc } from '../assets/transformPc'
+import { clearLines } from '../assets/clearLines'
 
 const initBoard = {
     board: emptyBoard,
@@ -31,13 +32,19 @@ const BOARD_ACTIONS = {
     RIGHT: 'keyPress_right',
     DOWN: 'keyPress_down',
     LEFT: 'keyPress_left',
+
+    // updating board
+    HIGHLIGHT: 'highlight_rows', 
+    UPDATE: 'update_board',
 }
 
 const {
     // pc handling
     BUILD_IN_WAITING, PULL_ACTIVE, KILL_ACTIVE, 
     // keyPress handling
-    UP, RIGHT, DOWN, LEFT,
+    UP, RIGHT, DOWN, LEFT, 
+    // updating board
+    HIGHLIGHT, UPDATE,
 } = BOARD_ACTIONS
 
 const boardReducer = (state, { type, payload }) => {
@@ -97,6 +104,20 @@ const boardReducer = (state, { type, payload }) => {
                 if (moveLeftObj.canHas) {
                     draft.activePc = moveLeftObj.pos
                 }
+            })
+
+        case HIGHLIGHT:
+            return produce(state, draft => {
+                // payload expects rows set
+                payload.lines.forEach(r => {
+                    draft.board[r] = new Array(draft.board[0].length).fill(2)
+                })
+
+            })
+        
+        case UPDATE:
+            return produce(state, draft => {
+                draft.board = payload
             })
 
         default:
