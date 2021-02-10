@@ -57,6 +57,7 @@ if (boardState.gameActive) {
 
 } else {
     if (dropInt) {
+        setDropInt(null)
         clearInterval(dropInt)
     }
 }
@@ -82,7 +83,7 @@ return clearInterval(dropInt)
             // clearLines: updatedBoard: [...[...], etc]
         }
 
-    }, [boardState.board])
+    }, [boardState.board, dispatchBoard])
 
     const receiveKeyPress = (key) => {
         // listen for key actions
