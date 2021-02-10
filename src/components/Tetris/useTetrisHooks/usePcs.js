@@ -15,9 +15,9 @@ export const usePcs = (reducer, init) => {
     useEffect(() => {
         // when active pc falls, kill it
         // this useEffect will handle by pulling active
-        if (!boardState.activePc.length) { dispatchBoard({ type: PULL_ACTIVE }) }
+        if (!Object.keys(boardState.activePc).length) { dispatchBoard({ type: PULL_ACTIVE }) }
         // init case, but also reset case
-        if (!boardState.inWaitingPc.length) { dispatchBoard({ type: BUILD_IN_WAITING }) }
+        if (!Object.keys(boardState.inWaitingPc).length) { dispatchBoard({ type: BUILD_IN_WAITING }) }
     
     }, [boardState])
 

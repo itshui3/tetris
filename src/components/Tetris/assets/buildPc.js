@@ -20,12 +20,6 @@ const triplePc = {
     // ie. no walls/static pc blocking
 }
 
-const Oblock = {
-    pivot: [0, 0],
-    forms: [
-        [ [1, 0], [0, 1], [1, 1] ]
-    ]
-}
 
 const Iblock = {
     pivot: [0, 1],
@@ -34,37 +28,8 @@ const Iblock = {
         [ [-1, 0], [1, 0], [2, 0] ],
         [ [0, -2], [0, 1], [0, -1] ],
         [ [-2, 0], [-1, 0], [1, 0] ],
-    ]
-}
-
-const Tblock = {
-    pivot: [1, 1],
-    forms: [
-        [ [0, -1], [-1, 0], [0, 1] ],
-        [ [-1, 0], [0, 1], [-1, 0] ],
-        [ [0, -1], [0, 1], [-1, 0] ],
-        [ [0, 1], [-1, 0], [1, 0] ]
-    ]
-}
-
-const Zblock = {
-    pivot: [1, 1],
-    forms: [
-        [ [-1, -1], [0, -1], [0, 1] ],
-        [ [-1, 1], [0, 1], [-1, 0] ],
-        [ [0, -1], [1, 0], [1, 1] ],
-        [ [-1, 0], [0, -1], [-1, 1] ]
-    ]
-}
-
-const Sblock = {
-    pivot: [1, 1],
-    forms: [
-        [ [0, -1], [-1, 0], [-1, 1] ],
-        [ [-1, 0], [0, 1], [1, 1] ],
-        [ [1, -1], [1, 0], [0, 1] ],
-        [ [-1, -1], [0, -1], [1, 0] ]
-    ]
+    ],
+    color: 'cyan'
 }
 
 const Jblock = {
@@ -87,6 +52,45 @@ const Lblock = {
     ]
 }
 
+const Oblock = {
+    pivot: [0, 0],
+    forms: [
+        [ [1, 0], [0, 1], [1, 1] ]
+    ],
+    color: 'yellow'
+}
+
+const Sblock = {
+    pivot: [1, 1],
+    forms: [
+        [ [0, -1], [-1, 0], [-1, 1] ],
+        [ [-1, 0], [0, 1], [1, 1] ],
+        [ [1, -1], [1, 0], [0, 1] ],
+        [ [-1, -1], [0, -1], [1, 0] ]
+    ]
+}
+
+const Tblock = {
+    pivot: [1, 1],
+    forms: [
+        [ [0, -1], [-1, 0], [0, 1] ],
+        [ [-1, 0], [0, 1], [-1, 0] ],
+        [ [0, -1], [0, 1], [-1, 0] ],
+        [ [0, 1], [-1, 0], [1, 0] ]
+    ],
+    color: 'orchid'
+}
+
+const Zblock = {
+    pivot: [1, 1],
+    forms: [
+        [ [-1, -1], [0, -1], [0, 1] ],
+        [ [-1, 1], [0, 1], [-1, 0] ],
+        [ [0, -1], [1, 0], [1, 1] ],
+        [ [-1, 0], [0, -1], [-1, 1] ]
+    ]
+}
+
 const pcs = [
     // dummy pieces
     // singlePc,
@@ -104,8 +108,8 @@ const pcs = [
 
 ]
 
-const buildInWaiting = () => pcs[Math.floor((Math.random() * pcs.length))]
+const buildPc = () => pcs[Math.floor((Math.random() * pcs.length))]
 
 export {
-    buildInWaiting
+    buildPc
 }

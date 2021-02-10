@@ -1,7 +1,7 @@
 
 import produce from 'immer'
 import { emptyBoard } from '../assets/emptyBoard.js'
-import { buildInWaiting } from '../assets/buildInWaiting.js'
+import { buildPc } from '../assets/buildPc.js'
 import { canHasMovement } from '../assets/canHasMovement'
 import { transformPc } from '../assets/transformPc'
 import { clearLines } from '../assets/clearLines'
@@ -9,15 +9,14 @@ import { clearLines } from '../assets/clearLines'
 const initBoard = {
     board: emptyBoard,
     // pieces
-    activePc: [
-        // 0 length activePc === none
-    ],
-    inWaitingPc: [
-        // same as above^^^
-    ],
+    activePc: {
+        form: 0,
+        pc: {}
+    },
+
+    inWaitingPc: {},
 
     combo: 0,
-
     points: 0
 
 }
@@ -32,6 +31,9 @@ const BOARD_ACTIONS = {
     RIGHT: 'keyPress_right',
     DOWN: 'keyPress_down',
     LEFT: 'keyPress_left',
+
+    CW: 'rotate_cw', // expect shift form index to right
+    CCW: 'rotate_ccw', // expect shift form index to left
 
     // updating board
     HIGHLIGHT: 'highlight_rows', 
@@ -53,18 +55,21 @@ const boardReducer = (state, { type, payload }) => {
 
         case PULL_ACTIVE: 
             return produce(state, draft => {
-                draft.activePc = draft.inWaitingPc
-                draft.inWaitingPc = buildInWaiting()
+                
+                draft.activePc.form = 0
+                draft.activePc.pc = draft.inWaitingPc
+
+                draft.inWaitingPc = buildPc()
             })
 
         case BUILD_IN_WAITING:
             return produce(state, draft => {
-                draft.inWaitingPc = buildInWaiting()
+                draft.inWaitingPc = buildPc()
             })
 
         case KILL_ACTIVE:
             return produce(state, draft => {
-                draft.activePc = []
+                draft.activePc = {}
             })
 
         case UP: 
