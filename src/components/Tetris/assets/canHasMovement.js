@@ -24,20 +24,13 @@ export const canHasMovement = (board, activePc, dir) => {
 
     // dir: [UP, RIGHT, DOWN, LEFT] - helper validates against ACTIONS
 
-    /* reduce to check individual parts, returns: 
-        expect: moveDown1Obj : {
-            canHas: boolean,
-            pos: Array(1) [y, x]
-            }
-    */
     const pivot = activePc.pivot
     const curForm = activePc.forms[activePc.form]
-    console.log('pivot', pivot)
-    console.log('curForm', curForm)
+
     const formsPositioned = [pivot, ...curForm.map((point, idx) => {
         return [point[0] + pivot[0], point[1] + pivot[1]]
     })]
-    console.log('positioned curForm', formsPositioned)
+
 
     if (dir === LEFT) {
 

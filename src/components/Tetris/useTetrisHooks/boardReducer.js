@@ -4,7 +4,7 @@ import { emptyBoard } from '../assets/emptyBoard.js'
 import { buildPc } from '../assets/buildPc.js'
 import { canHasMovement } from '../assets/canHasMovement'
 import { transformPc } from '../assets/transformPc'
-import { clearLines } from '../assets/clearLines'
+import { canHasRotation } from '../assets/canHasRotation'
 
 const initBoard = {
     board: emptyBoard,
@@ -22,12 +22,10 @@ const initBoard = {
 }
 
 const BOARD_ACTIONS = {
-    BUILD_IN_WAITING: 'build_in_waiting',
     PULL_ACTIVE: 'pull_active',
     KILL_ACTIVE: 'kill_active',
 
     // keyPress handling
-    UP: 'keyPress_up',
     RIGHT: 'keyPress_right',
     DOWN: 'keyPress_down',
     LEFT: 'keyPress_left',
@@ -37,16 +35,16 @@ const BOARD_ACTIONS = {
 
     // updating board
     HIGHLIGHT: 'highlight_rows', 
-    UPDATE: 'update_board',
 }
 
 const {
     // pc handling
-    BUILD_IN_WAITING, PULL_ACTIVE, KILL_ACTIVE, 
+    PULL_ACTIVE, KILL_ACTIVE, 
     // keyPress handling
-    UP, RIGHT, DOWN, LEFT, 
+    RIGHT, DOWN, LEFT, 
+    CW, CCW, 
     // updating board
-    HIGHLIGHT, UPDATE,
+    UPDATE,
 } = BOARD_ACTIONS
 
 const boardReducer = (state, { type, payload }) => {
@@ -56,28 +54,16 @@ const boardReducer = (state, { type, payload }) => {
         case PULL_ACTIVE: 
             return produce(state, draft => {
                 const builtPc = {...buildPc(), form: 0 }
-                console.log('pulling active...', builtPc)
                 draft.activePc = builtPc
-                // draft.inWaitingPc = buildPc()
             })
 
-        // case BUILD_IN_WAITING:
-        //     return produce(state, draft => {
-        //         draft.inWaitingPc = buildPc()
-        //     })
-
-        case KILL_ACTIVE:
+        case KILL_ACTIVE: 
             return produce(state, draft => {
                 draft.activePc = {}
             })
 
-        case UP: 
-            console.log('reg keyPress: UP')
-            return state
-
         case RIGHT: 
             const moveRightObj = canHasMovement(state.board, state.activePc, type)
-            console.log('moveRightObj', moveRightObj)
             return produce(state, draft => {
                 if (moveRightObj.canHas) {
                     draft.activePc.pivot = moveRightObj.pos
@@ -85,16 +71,12 @@ const boardReducer = (state, { type, payload }) => {
             })
 
         case DOWN: 
-            // cases: 
-            // [0] validate => move()
             const moveDownObj = canHasMovement(state.board, state.activePc, type)
-            console.log('moveDownObj', moveDownObj)
             if (moveDownObj.canHas) {
                 return produce(state, draft => {
                     draft.activePc.pivot = moveDownObj.pos
                 })
 
-            // [1] transform(board)
             } else {
                 return produce(state, draft => {
                     draft.board = transformPc(draft.activePc, draft.board)
@@ -109,22 +91,30 @@ const boardReducer = (state, { type, payload }) => {
                     draft.activePc.pivot = moveLeftObj.pos
                 }
             })
+        
+        case CW:           
+            const canHasCW = canHasRotation(state.board, state.activePc, CW)
+            console.log('canHasCW', canHasCW)
 
-        case HIGHLIGHT:
             return produce(state, draft => {
-                // payload expects rows set
-                payload.lines.forEach(r => {
-                    draft.board[r] = new Array(draft.board[0].length).fill(2)
-                })
+                draft.activePc.form = canHasRotation(state.board, state.activePc, CW).form
+            })
+            
 
+        case CCW:             
+            const canHasCCW = canHasRotation(state.board, state.activePc, CCW)
+            console.log('canHasCCW', canHasCCW)
+
+            return produce(state, draft => {
+                draft.activePc.form = canHasRotation(state.board, state.activePc, CCW).form
             })
         
-        case UPDATE:
+        case UPDATE: 
             return produce(state, draft => {
                 draft.board = payload
             })
 
-        default:
+        default: 
             return state
     }
 }
