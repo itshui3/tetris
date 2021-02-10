@@ -1,7 +1,7 @@
 
 import './styles/_helpers.css'
 import './styles/_tetrisBoard.css'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 
@@ -40,7 +40,30 @@ const lineActions = {
 
 function Tetris() {
 
+    const buttonBlurRef = useRef()
+
     const [boardState, dispatchBoard] = useTetris(boardReducer, initBoard)
+    const [dropInt, setDropInt] = useState(null)
+
+// dropInterval
+useEffect(() => {
+
+if (boardState.gameActive) {
+    console.log('init drop interval')
+    setDropInt( setInterval(() => {
+        console.log('reiterating dropInterval')
+        dispatchBoard({ type: BOARD_ACTIONS.DOWN })
+    }, 500) )
+
+} else {
+    if (dropInt) {
+        clearInterval(dropInt)
+    }
+}
+
+return clearInterval(dropInt)
+    
+}, [boardState.gameActive])
 
     useEffect(() => {
         const lineObj = validateLine(boardState.board)
@@ -56,10 +79,11 @@ function Tetris() {
 
     }, [boardState.board])
 
-
     const receiveKeyPress = (key) => {
         // listen for key actions
-        dispatchBoard({ type: controls[key] })
+        if (boardState.gameActive) {
+            dispatchBoard({ type: controls[key] })
+        }
 
     }
 
@@ -88,14 +112,16 @@ boardState.board.map((row, r_idx) => (
 ))
 }
 
-{/* key handling */}
-<KeyboardEventHandler
-handleKeys={['f', 'd', 's', 'r', 'w']}
-onKeyEvent={(key, e) => receiveKeyPress(key)} 
-/>
-
 {/* helper buttons */}
 <div className='helpers_cont'>
+    <button className='helpers_btn' ref={buttonBlurRef}
+    onClick={() => {
+        dispatchBoard({type: BOARD_ACTIONS.START})
+        buttonBlurRef.current.blur()
+    }}
+    >
+        Start Game
+    </button>
     <button 
     className='helpers_btn'
     onClick={() => dispatchBoard({type: KILL_ACTIVE})}
@@ -103,6 +129,13 @@ onKeyEvent={(key, e) => receiveKeyPress(key)}
     kill active pc
     </button>
 </div>
+
+{/* key handling */}
+<KeyboardEventHandler
+handleKeys={['f', 'd', 's', 'r', 'w']}
+onKeyEvent={(key, e) => receiveKeyPress(key)} 
+/>
+
 
 </div>
 </>
