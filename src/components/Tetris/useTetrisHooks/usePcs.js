@@ -5,7 +5,7 @@ import { useBoard } from './useBoard'
 
 import { BOARD_ACTIONS } from './boardReducer.js'
 
-const { PULL_ACTIVE, BUILD_IN_WAITING } = BOARD_ACTIONS
+const { PULL_ACTIVE } = BOARD_ACTIONS
 
 
 export const usePcs = (reducer, init) => {
@@ -16,8 +16,6 @@ export const usePcs = (reducer, init) => {
         // when active pc falls, kill it
         // this useEffect will handle by pulling active
         if (!Object.keys(boardState.activePc).length && boardState.gameActive) { dispatchBoard({ type: PULL_ACTIVE }) }
-        // init case, but also reset case
-        // if (!Object.keys(boardState.inWaitingPc).length) { dispatchBoard({ type: BUILD_IN_WAITING }) }
     
     }, [boardState.activePc, boardState.gameActive])
 
