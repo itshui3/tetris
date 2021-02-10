@@ -17,11 +17,16 @@ const initBoard = {
     inWaitingPc: {},
 
     combo: 0,
-    points: 0
+    points: 0,
+
+    gameActive: false,
 
 }
 
 const BOARD_ACTIONS = {
+    START: 'start_game',
+    END: 'end_game',
+
     PULL_ACTIVE: 'pull_active',
     KILL_ACTIVE: 'kill_active',
 
@@ -38,6 +43,7 @@ const BOARD_ACTIONS = {
 }
 
 const {
+    START,
     // pc handling
     PULL_ACTIVE, KILL_ACTIVE, 
     // keyPress handling
@@ -50,6 +56,13 @@ const {
 const boardReducer = (state, { type, payload }) => {
 
     switch(type) {
+        case START:
+            console.log('start game init')
+            return produce(state, draft => {
+                draft.board = emptyBoard;
+                draft.activePc = {};
+                draft.gameActive = true;
+            })
 
         case PULL_ACTIVE: 
             return produce(state, draft => {
