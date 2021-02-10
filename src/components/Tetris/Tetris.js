@@ -56,10 +56,6 @@ function Tetris() {
 
     }, [boardState.board])
 
-    useEffect(() => {
-        console.log('pivot', boardState.activePc.pivot)
-    }, [boardState.activePc.pivot])
-
 
     const receiveKeyPress = (key) => {
         // listen for key actions

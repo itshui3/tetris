@@ -33,11 +33,14 @@ if(CCW === dir) {
     const canHasRotate = builtForm.reduce((prev, block) => {
         if (!prev) { return prev }
         // check wall
-        if (block[0] < 0 || block[0] >= board[0].length) { return false }
-        if (block[1] < 0 || block[1] >= board.length) { return false }
+        if (block[0] < 0 || block[0] >= board.length) { 
+            return false }
+        if (block[1] < 0 || block[1] >= board[0].length) { 
+            return false }
 
         // check static
-        if (board[block[0]] && board[block[block[1]]]) { return false }
+        if (board[block[0]][block[1]]) { 
+            return false }
 
         return prev
     }, true)
