@@ -25,10 +25,12 @@ import {
 const { KILL_ACTIVE } = BOARD_ACTIONS
 
 const controls = {
-    'e': BOARD_ACTIONS.UP,
     'f': BOARD_ACTIONS.RIGHT,
     'd': BOARD_ACTIONS.DOWN,
     's': BOARD_ACTIONS.LEFT,
+
+    'r': BOARD_ACTIONS.CW,
+    'w': BOARD_ACTIONS.CCW,
 }
 
 const lineActions = {
@@ -54,10 +56,15 @@ function Tetris() {
 
     }, [boardState.board])
 
+    useEffect(() => {
+        console.log('pivot', boardState.activePc.pivot)
+    }, [boardState.activePc.pivot])
+
 
     const receiveKeyPress = (key) => {
         // listen for key actions
         dispatchBoard({ type: controls[key] })
+
     }
 
 return (
@@ -87,7 +94,7 @@ boardState.board.map((row, r_idx) => (
 
 {/* key handling */}
 <KeyboardEventHandler
-handleKeys={['e', 'f', 'd', 's']}
+handleKeys={['f', 'd', 's', 'r', 'w']}
 onKeyEvent={(key, e) => receiveKeyPress(key)} 
 />
 

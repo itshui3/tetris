@@ -1,8 +1,8 @@
 
-
+const startingX = 4
 
 const Iblock = {
-    pivot: [0, 1],
+    pivot: [0, 1 + startingX],
     forms: [
         [ [0, -1], [0, 1], [0, 2] ],
         [ [-1, 0], [1, 0], [2, 0] ],
@@ -13,29 +13,29 @@ const Iblock = {
 }
 
 const Jblock = {
-    pivot: [1, 1],
+    pivot: [1, 1 + startingX],
     forms: [
         [ [-1, -1], [0, -1], [0, 1] ],
         [ [-1, 0], [-1, 1], [1, 0] ],
         [ [0, -1], [0, 1], [1, 1] ],
         [ [1, -1], [1, 0], [-1, 0] ]
     ],
-    color: 'black'
+    color: 'dodgerblue'
 }
 
 const Lblock = {
-    pivot: [1, 1],
+    pivot: [1, 1 + startingX],
     forms: [
         [ [0, -1], [0, 1], [-1, 1] ], 
         [ [-1, 0], [1, 0], [1, 1] ],
         [ [1, -1], [0, -1], [0, 1] ],
         [ [-1, -1], [-1, 0], [1, 0] ]
     ],
-    color: 'black'
+    color: 'tomato'
 }
 
 const Oblock = {
-    pivot: [0, 0],
+    pivot: [0, 0 + startingX],
     forms: [
         [ [1, 0], [0, 1], [1, 1] ]
     ],
@@ -43,36 +43,36 @@ const Oblock = {
 }
 
 const Sblock = {
-    pivot: [1, 1],
+    pivot: [1, 1 + startingX],
     forms: [
         [ [0, -1], [-1, 0], [-1, 1] ],
         [ [-1, 0], [0, 1], [1, 1] ],
         [ [1, -1], [1, 0], [0, 1] ],
         [ [-1, -1], [0, -1], [1, 0] ]
     ],
-    color: 'black'
+    color: 'forestgreen'
 }
 
 const Tblock = {
-    pivot: [1, 1],
+    pivot: [1, 1 + startingX],
     forms: [
         [ [0, -1], [-1, 0], [0, 1] ],
-        [ [-1, 0], [0, 1], [-1, 0] ],
-        [ [0, -1], [0, 1], [-1, 0] ],
-        [ [0, 1], [-1, 0], [1, 0] ]
+        [ [-1, 0], [0, 1], [1, 0] ],
+        [ [0, -1], [0, 1], [1, 0] ],
+        [ [0, -1], [-1, 0], [1, 0] ]
     ],
-    color: 'orchid'
+    color: 'indigo'
 }
 
 const Zblock = {
-    pivot: [1, 1],
+    pivot: [1, 1 + startingX],
     forms: [
-        [ [-1, -1], [0, -1], [0, 1] ],
-        [ [-1, 1], [0, 1], [-1, 0] ],
+        [ [-1, -1], [-1, 0], [0, 1] ],
+        [ [-1, 1], [0, 1], [1, 0] ],
         [ [0, -1], [1, 0], [1, 1] ],
-        [ [-1, 0], [0, -1], [-1, 1] ]
+        [ [-1, 0], [0, -1], [1, -1] ]
     ],
-    color: 'black'
+    color: 'firebrick'
 }
 
 const pcs = [
