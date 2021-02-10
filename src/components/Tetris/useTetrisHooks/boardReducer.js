@@ -43,7 +43,7 @@ const BOARD_ACTIONS = {
 }
 
 const {
-    START,
+    START, END,
     // pc handling
     PULL_ACTIVE, KILL_ACTIVE, 
     // keyPress handling
@@ -62,6 +62,12 @@ const boardReducer = (state, { type, payload }) => {
                 draft.board = emptyBoard;
                 draft.activePc = {};
                 draft.gameActive = true;
+            })
+
+        case END: 
+            console.log('end game reducer')
+            return produce(state, draft => {
+                draft.gameActive = false;
             })
 
         case PULL_ACTIVE: 
