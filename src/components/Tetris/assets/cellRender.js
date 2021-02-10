@@ -1,6 +1,6 @@
 
 
-const isAPc = (c, activeCoords, cellCoords) => {
+const isAPc = (c, activePc, cellCoords) => {
     // check static pc
     if (c === 1) {
         return { backgroundColor: 'black'}
@@ -11,9 +11,9 @@ const isAPc = (c, activeCoords, cellCoords) => {
     const cell_y = cellCoords[0]
     const cell_x = cellCoords[1]
 
-    return activeCoords.reduce((style, coords) => {
-
-        if (coords[0] === cell_y && coords[1] === cell_x) {
+    return activePc.reduce((style, block) => {
+// block.coords[0]
+        if (block[0] === cell_y && block[1] === cell_x) {
             return {
                 backgroundColor: 'black'
             }

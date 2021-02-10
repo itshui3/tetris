@@ -32,7 +32,7 @@ const controls = {
 }
 
 const lineActions = {
-    'highlight': BOARD_ACTIONS.HIGHLIGHT, 
+    // 'highlight': BOARD_ACTIONS.HIGHLIGHT, 
     'update': BOARD_ACTIONS.UPDATE,
 }
 
@@ -53,6 +53,10 @@ function Tetris() {
         }
 
     }, [boardState.board])
+
+    useEffect(() => {
+        console.log('activePc', boardState.activePc)
+    }, [boardState.activePc])
 
     const receiveKeyPress = (key) => {
         // listen for key actions
