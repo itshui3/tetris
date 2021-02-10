@@ -40,7 +40,8 @@ const lineActions = {
 
 function Tetris() {
 
-    const buttonBlurRef = useRef()
+    const startGameButtonBlurRef = useRef()
+    const killActiveButtonBlurRef = useRef()
 
     const [boardState, dispatchBoard] = useTetris(boardReducer, initBoard)
     const [dropInt, setDropInt] = useState(null)
@@ -120,17 +121,19 @@ boardState.board.map((row, r_idx) => (
 
 {/* helper buttons */}
 <div className='helpers_cont'>
-    <button className='helpers_btn' ref={buttonBlurRef}
+    <button className='helpers_btn' ref={startGameButtonBlurRef}
     onClick={() => {
         dispatchBoard({type: BOARD_ACTIONS.START})
-        buttonBlurRef.current.blur()
+        startGameButtonBlurRef.current.blur()
     }}
     >
         Start Game
     </button>
-    <button 
-    className='helpers_btn'
-    onClick={() => dispatchBoard({type: KILL_ACTIVE})}
+    <button className='helpers_btn' ref={killActiveButtonBlurRef}
+    onClick={() => {
+        dispatchBoard({type: KILL_ACTIVE})
+        killActiveButtonBlurRef.current.blur()
+    }}
     >
     kill active pc
     </button>
