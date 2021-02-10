@@ -41,7 +41,7 @@ function Tetris() {
     const [boardState, dispatchBoard] = useTetris(boardReducer, initBoard)
 
     useEffect(() => {
-        const lineObj = validateLine(boardState.board, boardState.combo)
+        const lineObj = validateLine(boardState.board)
         // lineObj: { lines: [...Rows], points }
         
         if (lineObj.lines.size) {
@@ -54,9 +54,6 @@ function Tetris() {
 
     }, [boardState.board])
 
-    useEffect(() => {
-        console.log('activePc', boardState.activePc)
-    }, [boardState.activePc])
 
     const receiveKeyPress = (key) => {
         // listen for key actions

@@ -9,10 +9,10 @@ import { clearLines } from '../assets/clearLines'
 const initBoard = {
     board: emptyBoard,
     // pieces
-    activePc: {
-        form: 0,
-        pc: {}
-    },
+    activePc: {},
+    /*
+    {pivot[y, x], form, forms[...[]], color}
+    */
 
     inWaitingPc: {},
 
@@ -55,17 +55,16 @@ const boardReducer = (state, { type, payload }) => {
 
         case PULL_ACTIVE: 
             return produce(state, draft => {
-                
-                draft.activePc.form = 0
-                draft.activePc.pc = draft.inWaitingPc
-
-                draft.inWaitingPc = buildPc()
+                const builtPc = {...buildPc(), form: 0 }
+                console.log('pulling active...', builtPc)
+                draft.activePc = builtPc
+                // draft.inWaitingPc = buildPc()
             })
 
-        case BUILD_IN_WAITING:
-            return produce(state, draft => {
-                draft.inWaitingPc = buildPc()
-            })
+        // case BUILD_IN_WAITING:
+        //     return produce(state, draft => {
+        //         draft.inWaitingPc = buildPc()
+        //     })
 
         case KILL_ACTIVE:
             return produce(state, draft => {
@@ -81,7 +80,7 @@ const boardReducer = (state, { type, payload }) => {
             console.log('moveRightObj', moveRightObj)
             return produce(state, draft => {
                 if (moveRightObj.canHas) {
-                    draft.activePc = moveRightObj.pos
+                    draft.activePc.pivot = moveRightObj.pos
                 }
             })
 
@@ -91,15 +90,14 @@ const boardReducer = (state, { type, payload }) => {
             const moveDown1Obj = canHasMovement(state.board, state.activePc, type)
             if (moveDown1Obj.canHas) {
                 return produce(state, draft => {
-                    draft.activePc = moveDown1Obj.pos
+                    draft.activePc.pivot = moveDown1Obj.pos
                 })
 
             // [1] transform(board)
             } else {
                 return produce(state, draft => {
                     draft.board = transformPc(draft.activePc, draft.board)
-                    draft.activePc = []
-                    draft.combo = 0
+                    draft.activePc = {}
                 })
             }
 
@@ -107,7 +105,7 @@ const boardReducer = (state, { type, payload }) => {
             const moveLeftObj = canHasMovement(state.board, state.activePc, type)
             return produce(state, draft => {
                 if (moveLeftObj.canHas) {
-                    draft.activePc = moveLeftObj.pos
+                    draft.activePc.pivot = moveLeftObj.pos
                 }
             })
 

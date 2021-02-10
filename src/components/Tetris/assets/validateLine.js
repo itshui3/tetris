@@ -1,7 +1,7 @@
 
 import produce, { enableMapSet } from 'immer'
 enableMapSet()
-const validateLine = (board, combo) => {
+const validateLine = (board) => {
     // validateLine => linesObj: { lines: [...Rows], points }
 
 let lineObj = board.reduce( (accLineInfo, row, r_idx) => {
@@ -15,7 +15,7 @@ let lineObj = board.reduce( (accLineInfo, row, r_idx) => {
     if (isLine) {
         return produce(accLineInfo, draft => {
             draft.lines.add(r_idx)
-            draft.points += (combo * 1) + 1
+            draft.points +=  + 1
         })
     } else {
         return accLineInfo

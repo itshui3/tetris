@@ -17,9 +17,9 @@ export const usePcs = (reducer, init) => {
         // this useEffect will handle by pulling active
         if (!Object.keys(boardState.activePc).length) { dispatchBoard({ type: PULL_ACTIVE }) }
         // init case, but also reset case
-        if (!Object.keys(boardState.inWaitingPc).length) { dispatchBoard({ type: BUILD_IN_WAITING }) }
+        // if (!Object.keys(boardState.inWaitingPc).length) { dispatchBoard({ type: BUILD_IN_WAITING }) }
     
-    }, [boardState])
+    }, [boardState.activePc])
 
     return [
         boardState, 

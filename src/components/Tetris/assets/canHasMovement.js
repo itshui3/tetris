@@ -17,7 +17,7 @@ const {
 export const canHasMovement = (board, activePc, dir) => {
     // receive (board, activePc)
     // if !activePc.lenght return false
-    if (!activePc.length) { 
+    if (!Object.keys(activePc).length) { 
         console.log('keyPress: RIGHT. no pc present, preventing movement') 
         return { canHas: false, pos: [] } 
     }
@@ -30,99 +30,114 @@ export const canHasMovement = (board, activePc, dir) => {
             pos: Array(1) [y, x]
             }
     */
+    const pivot = activePc.pivot
+    const curForm = activePc.forms[activePc.form]
+    console.log('pivot', pivot)
+    console.log('curForm', curForm)
+    const formsPositioned = activePc.forms[activePc.form].map(() => {
+        
+    })
 
-   if (dir === LEFT) {
-        return activePc.reduce( (prev, block, idx) => {
-            if (!prev.canHas) { return prev }
+    return {canHas: false, pos: []}
+    // if (dir === LEFT) {
 
-            const blockY = block[0]
-            const blockX = block[1]
+    //         const attachPivot = [activePc.pivot, ...activePc.forms[activePc.form]]
+    //         console.log('attachPivot', attachPivot)
+    //         return attachPivot.reduce( (prev, block, idx) => {
+    //             if (!prev.canHas) { return prev }
 
-            // wall collision check
-            if (blockX - 1 < 0) {
-                return produce(prev, draft => {
-                    draft.canHas = false
-                    draft.pos = []
-                })
-            }
-            // pc collision check
-            else if (board[blockY][blockX-1] === 1) {
-                return produce(prev, draft => {
-                    draft.canHas = false
-                    draft.pos = []
-                })
-            } else {
-                return produce(prev, draft => {
-                    draft.pos = [...draft.pos, [blockY, blockX-1]]
-                })
-            }
+    //             const blockY = block[0]
+    //             const blockX = block[1]
+
+    //             // wall collision check
+    //             if (blockX - 1 < 0) {
+    //                 return produce(prev, draft => {
+    //                     draft.canHas = false
+    //                     draft.pos = []
+    //                 })
+    //             }
+    //             // pc collision check
+    //             else if (board[blockY][blockX-1] === 1) {
+    //                 return produce(prev, draft => {
+    //                     draft.canHas = false
+    //                     draft.pos = []
+    //                 })
+    //             } else {
+    //                 return produce(prev, draft => {
+    //                     draft.pos = [...draft.pos, [blockY, blockX-1]]
+    //                 })
+    //             }
+
+                
+    //         }, { canHas: true, pos: [] })
+
+    //     } 
+
+    // if (dir === RIGHT) {
+    //     const attachPivot = [activePc.pivot, ...activePc.forms[activePc.form]]
+    //     console.log('attachPivot', attachPivot)
+    //     return attachPivot.reduce( (prev, block, idx) => {
+    //         if (!prev.canHas) { return prev }
+
+    //         const blockY = block[0]
+    //         const blockX = block[1]
+    //         // wall collision check
+    //         if (blockX + 1 >= board[0].length) {
+    //             return produce(prev, draft => {
+    //                 draft.canHas = false
+    //                 draft.pos = []
+    //             })
+    //         }
+    //         // pc collision check
+    //         else if (board[blockY][blockX+1] === 1) {
+    //             return produce(prev, draft => {
+    //                 draft.canHas = false
+    //                 draft.pos = []
+    //             })
+    //         } else {
+    //             return produce(prev, draft => {
+    //                 draft.pos = [...draft.pos, [blockY, blockX+1]]
+    //             })
+    //         }
 
             
-        }, { canHas: true, pos: [] })
+    //     }, { canHas: true, pos: [] })
 
-    } 
+    // } 
 
-    if (dir === RIGHT) {
-        return activePc.reduce( (prev, block, idx) => {
-            if (!prev.canHas) { return prev }
+    // if (dir === DOWN) {
+    //     const attachPivot = [activePc.pivot, ...activePc.forms[activePc.form]]
+    //     console.log('attachPivot', attachPivot)
+    //     return attachPivot.reduce( (prev, block, idx) => {
+    //         if (!prev.canHas) { return prev }
 
-            const blockY = block[0]
-            const blockX = block[1]
-            // wall collision check
-            if (blockX + 1 >= board[0].length) {
-                return produce(prev, draft => {
-                    draft.canHas = false
-                    draft.pos = []
-                })
-            }
-            // pc collision check
-            else if (board[blockY][blockX+1] === 1) {
-                return produce(prev, draft => {
-                    draft.canHas = false
-                    draft.pos = []
-                })
-            } else {
-                return produce(prev, draft => {
-                    draft.pos = [...draft.pos, [blockY, blockX+1]]
-                })
-            }
+    //         const blockY = block[0]
+    //         const blockX = block[1]
 
-            
-        }, { canHas: true, pos: [] })
+    //         // floor collision check
+    //         if (blockY + 1 >= board.length) {
+    //             return produce(prev, draft => {
+    //                 draft.canHas = false
+    //                 draft.pos = []
+    //             })
 
-    } 
-    
-    if (dir === DOWN) {
-        return activePc.reduce( (prev, block, idx) => {
-            if (!prev.canHas) { return prev }
+    //         // staticPc collision check
+    //         } else if (board[blockY+1][blockX] === 1) {
 
-            const blockY = block[0]
-            const blockX = block[1]
+    //             return produce(prev, draft => {
+    //                 draft.canHas = false
+    //                 draft.pos = []
+    //             })
 
-            // floor collision check
-            if (blockY + 1 >= board.length) {
-                return produce(prev, draft => {
-                    draft.canHas = false
-                    draft.pos = []
-                })
+    //         // render pc next pos returned with next acc/prev
+    //         } else {
+    //             return produce(prev, draft => {
+    //                 draft.pos = [...draft.pos, [blockY+1, blockX]]
+    //             })
+    //         }
 
-            // staticPc collision check
-            } else if (board[blockY+1][blockX] === 1) {
+    //     }, { canHas: true, pos: [] })
 
-                return produce(prev, draft => {
-                    draft.canHas = false
-                    draft.pos = []
-                })
-
-            // render pc next pos returned with next acc/prev
-            } else {
-                return produce(prev, draft => {
-                    draft.pos = [...draft.pos, [blockY+1, blockX]]
-                })
-            }
-
-        }, { canHas: true, pos: [] })
-
-    }
+    // }
 
 }
