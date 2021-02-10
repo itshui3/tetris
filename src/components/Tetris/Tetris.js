@@ -32,7 +32,7 @@ const controls = {
 }
 
 const lineActions = {
-    'highlight': BOARD_ACTIONS.HIGHLIGHT, 
+    // 'highlight': BOARD_ACTIONS.HIGHLIGHT, 
     'update': BOARD_ACTIONS.UPDATE,
 }
 
@@ -41,7 +41,7 @@ function Tetris() {
     const [boardState, dispatchBoard] = useTetris(boardReducer, initBoard)
 
     useEffect(() => {
-        const lineObj = validateLine(boardState.board, boardState.combo)
+        const lineObj = validateLine(boardState.board)
         // lineObj: { lines: [...Rows], points }
         
         if (lineObj.lines.size) {
@@ -53,6 +53,7 @@ function Tetris() {
         }
 
     }, [boardState.board])
+
 
     const receiveKeyPress = (key) => {
         // listen for key actions

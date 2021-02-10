@@ -1,7 +1,7 @@
 
 import produce from 'immer'
 import { emptyBoard } from '../assets/emptyBoard.js'
-import { buildInWaiting } from '../assets/buildInWaiting.js'
+import { buildPc } from '../assets/buildPc.js'
 import { canHasMovement } from '../assets/canHasMovement'
 import { transformPc } from '../assets/transformPc'
 import { clearLines } from '../assets/clearLines'
@@ -9,15 +9,14 @@ import { clearLines } from '../assets/clearLines'
 const initBoard = {
     board: emptyBoard,
     // pieces
-    activePc: [
-        // 0 length activePc === none
-    ],
-    inWaitingPc: [
-        // same as above^^^
-    ],
+    activePc: {},
+    /*
+    {pivot[y, x], form, forms[...[]], color}
+    */
+
+    inWaitingPc: {},
 
     combo: 0,
-
     points: 0
 
 }
@@ -32,6 +31,9 @@ const BOARD_ACTIONS = {
     RIGHT: 'keyPress_right',
     DOWN: 'keyPress_down',
     LEFT: 'keyPress_left',
+
+    CW: 'rotate_cw', // expect shift form index to right
+    CCW: 'rotate_ccw', // expect shift form index to left
 
     // updating board
     HIGHLIGHT: 'highlight_rows', 
@@ -53,18 +55,20 @@ const boardReducer = (state, { type, payload }) => {
 
         case PULL_ACTIVE: 
             return produce(state, draft => {
-                draft.activePc = draft.inWaitingPc
-                draft.inWaitingPc = buildInWaiting()
+                const builtPc = {...buildPc(), form: 0 }
+                console.log('pulling active...', builtPc)
+                draft.activePc = builtPc
+                // draft.inWaitingPc = buildPc()
             })
 
-        case BUILD_IN_WAITING:
-            return produce(state, draft => {
-                draft.inWaitingPc = buildInWaiting()
-            })
+        // case BUILD_IN_WAITING:
+        //     return produce(state, draft => {
+        //         draft.inWaitingPc = buildPc()
+        //     })
 
         case KILL_ACTIVE:
             return produce(state, draft => {
-                draft.activePc = []
+                draft.activePc = {}
             })
 
         case UP: 
@@ -76,25 +80,25 @@ const boardReducer = (state, { type, payload }) => {
             console.log('moveRightObj', moveRightObj)
             return produce(state, draft => {
                 if (moveRightObj.canHas) {
-                    draft.activePc = moveRightObj.pos
+                    draft.activePc.pivot = moveRightObj.pos
                 }
             })
 
         case DOWN: 
             // cases: 
             // [0] validate => move()
-            const moveDown1Obj = canHasMovement(state.board, state.activePc, type)
-            if (moveDown1Obj.canHas) {
+            const moveDownObj = canHasMovement(state.board, state.activePc, type)
+            console.log('moveDownObj', moveDownObj)
+            if (moveDownObj.canHas) {
                 return produce(state, draft => {
-                    draft.activePc = moveDown1Obj.pos
+                    draft.activePc.pivot = moveDownObj.pos
                 })
 
             // [1] transform(board)
             } else {
                 return produce(state, draft => {
                     draft.board = transformPc(draft.activePc, draft.board)
-                    draft.activePc = []
-                    draft.combo = 0
+                    draft.activePc = {}
                 })
             }
 
@@ -102,7 +106,7 @@ const boardReducer = (state, { type, payload }) => {
             const moveLeftObj = canHasMovement(state.board, state.activePc, type)
             return produce(state, draft => {
                 if (moveLeftObj.canHas) {
-                    draft.activePc = moveLeftObj.pos
+                    draft.activePc.pivot = moveLeftObj.pos
                 }
             })
 
