@@ -132,7 +132,7 @@ boardState.board.map((row, r_idx) => (
     <button className='helpers_btn' ref={killActiveButtonBlurRef}
     onClick={() => {
         dispatchBoard({type: KILL_ACTIVE})
-        killActiveButtonBlurRef.current.blur
+        killActiveButtonBlurRef.current.blur()
     }}
     >
     kill active pc
