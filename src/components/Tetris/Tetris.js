@@ -66,6 +66,11 @@ return clearInterval(dropInt)
 }, [boardState.gameActive])
 
     useEffect(() => {
+
+        if (boardState.board[0].find((block) => block > 0)) {
+            dispatchBoard({ type: BOARD_ACTIONS.END })
+        }
+
         const lineObj = validateLine(boardState.board)
         // lineObj: { lines: [...Rows], points }
         
