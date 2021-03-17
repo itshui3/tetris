@@ -90,13 +90,15 @@ const boardReducer = (state, { type, payload }) => {
             })
 
         case DOWN: 
+            if (!Object.keys(state.activePc).length) { return state }
+
             const moveDownObj = canHasMovement(state.board, state.activePc, type)
             if (moveDownObj.canHas) {
                 return produce(state, draft => {
                     draft.activePc.pivot = moveDownObj.pos
                 })
 
-            } else if (state.activePc && state.board) {
+            } else {
                 return produce(state, draft => {
                     draft.board = transformPc(state.activePc, state.board)
                     draft.activePc = {}
