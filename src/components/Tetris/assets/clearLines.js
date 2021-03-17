@@ -1,22 +1,25 @@
 
+import produce from 'immer';
 
 const clearLines = (board, rows) => {
+    // change rows to an array with descending rows to be cleared
+    let consumedBoard = produce(board, draftBoard => {
 
-    const draftBoard = new Array(board.length)
+    for (let i = 0; i < rows.length; i++) {
+        // for each marked row cleared, the next one becomes 1 row up
+        let curMarked = rows[i] + i;
 
-    let floor = board.length-1
-    for (let r = board.length-1; r > -1; r--) {
-        if (!rows.has(r)) {
-            draftBoard[floor] = board[r]
-            floor -= 1
+        // crush line
+        for (let l = curMarked-1; l > -1; l--) {
+            draftBoard[l+1] = draftBoard[l].map(item => item);
+
         }
     }
+    
+        return draftBoard;
+    });
 
-    for (let i = 0; i < rows.size; i++) {
-        draftBoard[i] = new Array(board[0].length).fill(0)
-    }
-
-    return draftBoard
+    return consumedBoard;
 }
 
 export { clearLines }
