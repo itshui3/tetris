@@ -18,7 +18,7 @@ const clearLines = (board, rows) => {
     
         return draftBoard;
     });
-    console.log('consumedBoard', consumedBoard);
+
     return consumedBoard;
 }
 

@@ -50,9 +50,9 @@ function Tetris() {
 useEffect(() => {
 
 if (boardState.gameActive) {
-    console.log('init drop interval')
+
     setDropInt( setInterval(() => {
-        console.log('reiterating dropInterval')
+
         dispatchBoard({ type: BOARD_ACTIONS.DOWN })
     }, 500) )
 
