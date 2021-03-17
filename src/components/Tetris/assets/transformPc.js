@@ -2,7 +2,8 @@
 
 import produce from 'immer'
 const transformPc = (activePc, board) => {
-
+    console.log('transformPc');
+    console.log(activePc, board);
     const buildForm = [activePc.pivot, ...activePc.forms[activePc.form].map((point, idx) => {
         return [point[0] + activePc.pivot[0], point[1] + activePc.pivot[1]]
     })]
