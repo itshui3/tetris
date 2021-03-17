@@ -76,7 +76,7 @@ return clearInterval(dropInt)
         const lineObj = validateLine(boardState.board)
         // lineObj: { lines: [...Rows], points }
         
-        if (lineObj.lines.size) {
+        if (lineObj.lines.length) {
             dispatchBoard({ 
                 type: lineActions['update'], 
                 payload: clearLines(boardState.board, lineObj.lines)

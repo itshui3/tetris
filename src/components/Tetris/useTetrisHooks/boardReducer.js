@@ -96,9 +96,9 @@ const boardReducer = (state, { type, payload }) => {
                     draft.activePc.pivot = moveDownObj.pos
                 })
 
-            } else {
+            } else if (state.activePc && state.board) {
                 return produce(state, draft => {
-                    draft.board = transformPc(draft.activePc, draft.board)
+                    draft.board = transformPc(state.activePc, state.board)
                     draft.activePc = {}
                 })
             }

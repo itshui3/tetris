@@ -1,7 +1,7 @@
 
 import produce, { enableMapSet } from 'immer'
 enableMapSet()
-const validateLine = (board) => {
+let validateLine = (board) => {
     // validateLine => linesObj: { lines: [...Rows], points }
 
 let lineObj = board.reduce( (accLineInfo, row, r_idx) => {
@@ -14,14 +14,18 @@ let lineObj = board.reduce( (accLineInfo, row, r_idx) => {
     // accumulate points if line
     if (isLine) {
         return produce(accLineInfo, draft => {
-            draft.lines.add(r_idx)
+            draft.lines.push(r_idx)
             draft.points +=  + 1
         })
     } else {
         return accLineInfo
     }
 
-}, { lines: new Set(), points: 0 })
+}, { lines: [], points: 0 })
+
+lineObj = produce(lineObj, draft => {
+    draft.lines = draft.lines.reverse();
+})
 
 return lineObj
 
