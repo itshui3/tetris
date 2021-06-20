@@ -96,7 +96,7 @@ return clearInterval(dropInt)
 
 return (
 <>
-<div className='tetris_cont'>
+<div className='tetris_cont' data-testid='tetris_cont'>
 
 {
 boardState.board.map((row, r_idx) => (
