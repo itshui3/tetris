@@ -8,7 +8,7 @@ import {
 
 function App() {
 return (
-<div className="centering_wrapper">
+<div className="centering_wrapper" data-testid="app_cont">
 <div className='centered_cont'>
 
     <Header />
