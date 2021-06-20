@@ -9,8 +9,8 @@ function Header() {
 
 return (
 <>
-<div className='header_cont'>
-    <Typewriter
+<header className='header_cont'>
+    <Typewriter data-testid='header_typewriter'
     onInit={(typewriter) => {
         typewriter.start().changeDelay(20).changeDeleteSpeed(10)
         .typeString('let\'s play...')
@@ -20,7 +20,7 @@ return (
     }
 
     } />
-</div>
+</header>
 </>
 )
 }
