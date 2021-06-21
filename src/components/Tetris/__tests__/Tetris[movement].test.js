@@ -12,10 +12,25 @@ beforeEach(() => {
 });
 
 test('keyboard press \'s\' moves block to the left', () => {
-
     const dom_tetrisCont = screen.getByTestId('tetris_cont');
 
-    console.log(dom_tetrisCont, 'before keydown');
+    // what I want is: 
+    // which coordinates are occupied? 
+    let prefireCoords = [];
+
+    for (let r = 0; r < dom_tetrisCont.children.length; r++) {
+
+        for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
+            if (r === 0 && c === 0) {
+                console.log(dom_tetrisCont.children[r].children[c]);
+            }
+            
+        } 
+
+    }
+
+    const dom_startGame = screen.getByTestId('startGame');
+    // dom_startGame
 
     // fire keyDown('s')
     fireEvent.keyDown(
@@ -23,14 +38,12 @@ test('keyboard press \'s\' moves block to the left', () => {
         { key: 's', code: 'KeyS' }
         );
 
-    console.log(dom_tetrisCont, 'after keydown');
+    let postfireCoords = [];
 
 });
 
 test('keyboard press \'d\' moves block to the south', () => {
     const dom_tetrisCont = screen.getByTestId('tetris_cont');
-
-    console.log(dom_tetrisCont, 'before keydown');
 
     // fire keyDown('s')
     fireEvent.keyDown(
@@ -38,13 +51,10 @@ test('keyboard press \'d\' moves block to the south', () => {
         { key: 'd', code: 'KeyD' }
         );
 
-    console.log(dom_tetrisCont, 'after keydown');
 });
 
 test('keyboard press \'f\' moves block to the south', () => {
     const dom_tetrisCont = screen.getByTestId('tetris_cont');
-
-    console.log(dom_tetrisCont, 'before keydown');
 
     // fire keyDown('s')
     fireEvent.keyDown(
@@ -52,13 +62,10 @@ test('keyboard press \'f\' moves block to the south', () => {
         { key: 'f', code: 'KeyF' }
         );
 
-    console.log(dom_tetrisCont, 'after keydown');
 });
 
 test('keyboard press \'e\' moves block to the south', () => {
     const dom_tetrisCont = screen.getByTestId('tetris_cont');
-
-    console.log(dom_tetrisCont, 'before keydown');
 
     // fire keyDown('s')
     fireEvent.keyDown(
@@ -66,14 +73,11 @@ test('keyboard press \'e\' moves block to the south', () => {
         { key: 'e', code: 'KeyE' }
         );
 
-    console.log(dom_tetrisCont, 'after keydown');
 });
 
 
 test('keyboard press \'w\' moves block to the south', () => {
     const dom_tetrisCont = screen.getByTestId('tetris_cont');
-
-    console.log(dom_tetrisCont, 'before keydown');
 
     // fire keyDown('s')
     fireEvent.keyDown(
@@ -81,13 +85,10 @@ test('keyboard press \'w\' moves block to the south', () => {
         { key: 'w', code: 'KeyW' }
         );
 
-    console.log(dom_tetrisCont, 'after keydown');
 });
 
 test('keyboard press \'r\' moves block to the south', () => {
     const dom_tetrisCont = screen.getByTestId('tetris_cont');
-
-    console.log(dom_tetrisCont, 'before keydown');
 
     // fire keyDown('s')
     fireEvent.keyDown(
@@ -95,5 +96,4 @@ test('keyboard press \'r\' moves block to the south', () => {
         { key: 'r', code: 'KeyR' }
         );
 
-    console.log(dom_tetrisCont, 'after keydown');
 });

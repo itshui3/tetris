@@ -63,7 +63,7 @@ if (boardState.gameActive) {
     }
 }
 
-return clearInterval(dropInt);
+return () => clearInterval(dropInt);
     
 }, [boardState.gameActive]);
 
@@ -121,7 +121,7 @@ boardState.board.map((row, r_idx) => (
 
 {/* helper buttons */}
 <div className='helpers_cont'>
-    <button className='helpers_btn' ref={startGameButtonBlurRef}
+    <button className='helpers_btn' ref={startGameButtonBlurRef} data-testid='startGame'
     onClick={() => {
         dispatchBoard({type: BOARD_ACTIONS.START});
         startGameButtonBlurRef.current.blur();
@@ -129,7 +129,7 @@ boardState.board.map((row, r_idx) => (
     >
         Start Game
     </button>
-    <button className='helpers_btn' ref={killActiveButtonBlurRef}
+    <button className='helpers_btn' ref={killActiveButtonBlurRef} data-testid='killActive'
     onClick={() => {
         dispatchBoard({type: KILL_ACTIVE});
         killActiveButtonBlurRef.current.blur();
