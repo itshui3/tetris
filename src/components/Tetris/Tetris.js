@@ -1,18 +1,18 @@
 
-import './styles/_helpers.css'
-import './styles/_tetrisBoard.css'
-import React, { useEffect, useRef, useState } from 'react'
+import './styles/_helpers.css';
+import './styles/_tetrisBoard.css';
+import React, { useEffect, useRef, useState } from 'react';
 
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 // cell style factories
 // (stateAssets): renderUI
-import { determineBorder } from './assets/borderFactory.js'
-import { isAPc } from './assets/cellRender.js'
+import { determineBorder } from './assets/borderFactory.js';
+import { isAPc } from './assets/cellRender.js';
 
 // line handling
-import { validateLine } from './assets/validateLine.js'
-import { clearLines } from './assets/clearLines.js'
+import { validateLine } from './assets/validateLine.js';
+import { clearLines } from './assets/clearLines.js';
 
 // tetris state assets
 import {
@@ -20,9 +20,9 @@ import {
     initBoard,
     BOARD_ACTIONS,
     boardReducer,
-} from './useTetrisHooks'
+} from './useTetrisHooks';
 
-const { KILL_ACTIVE } = BOARD_ACTIONS
+const { KILL_ACTIVE } = BOARD_ACTIONS;
 
 const controls = {
     'f': BOARD_ACTIONS.RIGHT,
@@ -31,20 +31,20 @@ const controls = {
 
     'r': BOARD_ACTIONS.CW,
     'w': BOARD_ACTIONS.CCW,
-}
+};
 
 const lineActions = {
     // 'highlight': BOARD_ACTIONS.HIGHLIGHT, 
     'update': BOARD_ACTIONS.UPDATE,
-}
+};
 
 function Tetris() {
 
-    const startGameButtonBlurRef = useRef()
-    const killActiveButtonBlurRef = useRef()
+    const startGameButtonBlurRef = useRef();
+    const killActiveButtonBlurRef = useRef();
 
-    const [boardState, dispatchBoard] = useTetris(boardReducer, initBoard)
-    const [dropInt, setDropInt] = useState(null)
+    const [boardState, dispatchBoard] = useTetris(boardReducer, initBoard);
+    const [dropInt, setDropInt] = useState(null);
 
 // dropInterval
 useEffect(() => {
@@ -53,43 +53,43 @@ if (boardState.gameActive) {
 
     setDropInt( setInterval(() => {
 
-        dispatchBoard({ type: BOARD_ACTIONS.DOWN })
-    }, 500) )
+        dispatchBoard({ type: BOARD_ACTIONS.DOWN });
+    }, 500) );
 
 } else {
     if (dropInt) {
-        setDropInt(null)
-        clearInterval(dropInt)
+        setDropInt(null);
+        clearInterval(dropInt);
     }
 }
 
-return clearInterval(dropInt)
+return clearInterval(dropInt);
     
-}, [boardState.gameActive])
+}, [boardState.gameActive]);
 
     useEffect(() => {
 
         if (boardState.board[0].find((block) => block > 0)) {
-            dispatchBoard({ type: BOARD_ACTIONS.END })
+            dispatchBoard({ type: BOARD_ACTIONS.END });
         }
 
-        const lineObj = validateLine(boardState.board)
+        const lineObj = validateLine(boardState.board);
         // lineObj: { lines: [...Rows], points }
         
         if (lineObj.lines.length) {
             dispatchBoard({ 
                 type: lineActions['update'], 
                 payload: clearLines(boardState.board, lineObj.lines)
-            })
+            });
             // clearLines: updatedBoard: [...[...], etc]
         }
 
-    }, [boardState.board, dispatchBoard])
+    }, [boardState.board, dispatchBoard]);
 
     const receiveKeyPress = (key) => {
         // listen for key actions
         if (boardState.gameActive) {
-            dispatchBoard({ type: controls[key] })
+            dispatchBoard({ type: controls[key] });
         }
 
     }
@@ -123,16 +123,16 @@ boardState.board.map((row, r_idx) => (
 <div className='helpers_cont'>
     <button className='helpers_btn' ref={startGameButtonBlurRef}
     onClick={() => {
-        dispatchBoard({type: BOARD_ACTIONS.START})
-        startGameButtonBlurRef.current.blur()
+        dispatchBoard({type: BOARD_ACTIONS.START});
+        startGameButtonBlurRef.current.blur();
     }}
     >
         Start Game
     </button>
     <button className='helpers_btn' ref={killActiveButtonBlurRef}
     onClick={() => {
-        dispatchBoard({type: KILL_ACTIVE})
-        killActiveButtonBlurRef.current.blur()
+        dispatchBoard({type: KILL_ACTIVE});
+        killActiveButtonBlurRef.current.blur();
     }}
     >
     kill active pc
@@ -151,4 +151,4 @@ onKeyEvent={(key, e) => receiveKeyPress(key)}
 )
 }
 
-export default Tetris
+export default Tetris;

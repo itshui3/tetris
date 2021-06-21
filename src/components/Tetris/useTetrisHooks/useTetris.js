@@ -4,8 +4,8 @@ import { usePcs } from './usePcs'
 
 const useTetris = (reducer, init) => {
 
-    return usePcs(reducer, init)
+    return usePcs(reducer, init);
     // [boardState, dispatchBoard]
 }
 
-export { useTetris }
+export { useTetris };
