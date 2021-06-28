@@ -21,7 +21,7 @@ test('it renders a board with the right number of cols/rows', () => {
     const dom_TetrisCont = screen.getByTestId('tetris_cont');
 
     // rows
-    expect(dom_TetrisCont.children.length).toBe(25);
+    expect(dom_TetrisCont.children.length).toBe(24);
     // cols
     expect(dom_TetrisCont.children[0].children.length).toBe(10);
 });

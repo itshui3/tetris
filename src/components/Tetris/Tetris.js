@@ -3,6 +3,7 @@ import './styles/_helpers.css';
 import './styles/_tetrisBoard.css';
 import React, { useEffect, useRef, useState } from 'react';
 
+// outside components
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 // cell style factories
@@ -96,57 +97,87 @@ return () => clearInterval(dropInt);
 
 return (
 <>
-<div className='tetris_cont' data-testid='tetris_cont'>
+    <div className='tetris_cont' data-testid='tetris_cont'>
 
-{
-boardState.board.map((row, r_idx) => (
-<div className='board_row' key={r_idx}>
     {
-        row.map((staticCell, c_idx) => (
+    boardState.board.map((row, r_idx) => (
+    <div className='board_row' key={r_idx}>
+        {
+            row.map((staticCell, c_idx) => (
 
-        <div className='board_cell' key={c_idx}
-        style={{ 
-            ...determineBorder(r_idx, c_idx),
-            ...isAPc(staticCell, boardState.activePc, [r_idx, c_idx])
-        }}
-        >
+            <div className='board_cell' key={c_idx}
+            style={{ 
+                ...determineBorder(r_idx, c_idx),
+                ...isAPc(staticCell, boardState.activePc, [r_idx, c_idx])
+            }}
+            >
+
+            </div>
+
+            ))
+        }
+    </div>
+    ))
+    }
+    </div>
+    <div className='controllers_cont'>
+        {/* dummy controls */}
+        <div className='helpers_cont'>
+
+        <button data-testid='control_ccw'
+        onClick={() => receiveKeyPress('w')}
+        >ccw</button>
+        <button data-testid='control_cw'
+        onClick={() => receiveKeyPress('r')}
+        >cw</button>
 
         </div>
 
-        ))
-    }
-</div>
-))
-}
+        <div className='helpers_cont'>
 
-{/* helper buttons */}
-<div className='helpers_cont'>
-    <button className='helpers_btn' ref={startGameButtonBlurRef} data-testid='startGame'
-    onClick={() => {
-        dispatchBoard({type: BOARD_ACTIONS.START});
-        startGameButtonBlurRef.current.blur();
-    }}
-    >
-        Start Game
-    </button>
-    <button className='helpers_btn' ref={killActiveButtonBlurRef} data-testid='killActive'
-    onClick={() => {
-        dispatchBoard({type: KILL_ACTIVE});
-        killActiveButtonBlurRef.current.blur();
-    }}
-    >
-    kill active pc
-    </button>
-</div>
+        <button data-testid='control_left'
+        onClick={() => receiveKeyPress('s')}
+        >left</button>
+        <button data-testid='control_down'
+        onClick={() => receiveKeyPress('d')}
+        >down</button>
+        <button data-testid='control_right'
+        onClick={() => receiveKeyPress('f')}
+        >right</button>
 
-{/* key handling */}
-<KeyboardEventHandler
-handleKeys={['f', 'd', 's', 'r', 'w']}
-onKeyEvent={(key, e) => receiveKeyPress(key)} 
-/>
+        </div>
 
+        {/* helper buttons */}
+        <div className='helpers_cont'>
+        <button className='helpers_btn' ref={startGameButtonBlurRef} data-testid='startGame'
+        onClick={() => {
+            dispatchBoard({type: BOARD_ACTIONS.START});
+            startGameButtonBlurRef.current.blur();
+        }}
+        >
+            Start Game
+        </button>
+        <button className='helpers_btn' ref={killActiveButtonBlurRef} data-testid='killActive'
+        onClick={() => {
+            dispatchBoard({type: KILL_ACTIVE});
+            killActiveButtonBlurRef.current.blur();
+        }}
+        >
+        kill active pc
+        </button>
+        </div>
 
-</div>
+        {/* 
+        key handling 
+        KeyboardEventHandler - might not be super accessible as is seen from tests
+        */}
+
+        <KeyboardEventHandler
+        handleKeys={['f', 'd', 's', 'r', 'w']}
+        handleEventType='keydown'
+        onKeyEvent={(key, e) => receiveKeyPress(key)}
+        />
+    </div>
 </>
 )
 }

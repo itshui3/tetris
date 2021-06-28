@@ -18,82 +18,98 @@ test('keyboard press \'s\' moves block to the left', () => {
     // which coordinates are occupied? 
     let prefireCoords = [];
 
+    const dom_startGame = screen.getByTestId('startGame');
+    // dom_startGame
+    fireEvent.click(dom_startGame);
+
     for (let r = 0; r < dom_tetrisCont.children.length; r++) {
 
         for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
-            if (r === 0 && c === 0) {
-                console.log(dom_tetrisCont.children[r].children[c]);
+            if (!!dom_tetrisCont.children[r].children[c].style.backgroundColor) {
+                prefireCoords.push([r, c]);
             }
-            
-        } 
+
+        }
 
     }
 
-    const dom_startGame = screen.getByTestId('startGame');
-    // dom_startGame
-
     // fire keyDown('s')
-    fireEvent.keyDown(
-        dom_tetrisCont, 
-        { key: 's', code: 'KeyS' }
-        );
+    // [0] - are there options I can configure to show the event fired? 
 
-    let postfireCoords = [];
+    const dom_leftCtrl = screen.getByTestId('control_left');
+    fireEvent.click(dom_leftCtrl);
+
+    let postfireCoords = new Set();
+
+    for (let r = 0; r < dom_tetrisCont.children.length; r++) {
+
+        for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
+            if (!!dom_tetrisCont.children[r].children[c].style.backgroundColor) {
+                postfireCoords.add(`${r}.${c}`);
+            }
+
+        }
+
+    }
+
+    prefireCoords.forEach(pre => {
+        expect(postfireCoords.has(pre[0]+'.'+(pre[1]-1))).toBeTruthy();
+    });
 
 });
 
-test('keyboard press \'d\' moves block to the south', () => {
-    const dom_tetrisCont = screen.getByTestId('tetris_cont');
+// test('keyboard press \'d\' moves block to the south', () => {
+//     const dom_tetrisCont = screen.getByTestId('tetris_cont');
 
-    // fire keyDown('s')
-    fireEvent.keyDown(
-        dom_tetrisCont, 
-        { key: 'd', code: 'KeyD' }
-        );
+//     // fire keyDown('s')
+//     fireEvent.keyDown(
+//         dom_tetrisCont, 
+//         { key: 'd', code: 'KeyD' }
+//         );
 
-});
+// });
 
-test('keyboard press \'f\' moves block to the south', () => {
-    const dom_tetrisCont = screen.getByTestId('tetris_cont');
+// test('keyboard press \'f\' moves block to the south', () => {
+//     const dom_tetrisCont = screen.getByTestId('tetris_cont');
 
-    // fire keyDown('s')
-    fireEvent.keyDown(
-        dom_tetrisCont, 
-        { key: 'f', code: 'KeyF' }
-        );
+//     // fire keyDown('s')
+//     fireEvent.keyDown(
+//         dom_tetrisCont, 
+//         { key: 'f', code: 'KeyF' }
+//         );
 
-});
+// });
 
-test('keyboard press \'e\' moves block to the south', () => {
-    const dom_tetrisCont = screen.getByTestId('tetris_cont');
+// test('keyboard press \'e\' moves block to the south', () => {
+//     const dom_tetrisCont = screen.getByTestId('tetris_cont');
 
-    // fire keyDown('s')
-    fireEvent.keyDown(
-        dom_tetrisCont, 
-        { key: 'e', code: 'KeyE' }
-        );
+//     // fire keyDown('s')
+//     fireEvent.keyDown(
+//         dom_tetrisCont, 
+//         { key: 'e', code: 'KeyE' }
+//         );
 
-});
+// });
 
 
-test('keyboard press \'w\' moves block to the south', () => {
-    const dom_tetrisCont = screen.getByTestId('tetris_cont');
+// test('keyboard press \'w\' moves block to the south', () => {
+//     const dom_tetrisCont = screen.getByTestId('tetris_cont');
 
-    // fire keyDown('s')
-    fireEvent.keyDown(
-        dom_tetrisCont, 
-        { key: 'w', code: 'KeyW' }
-        );
+//     // fire keyDown('s')
+//     fireEvent.keyDown(
+//         dom_tetrisCont, 
+//         { key: 'w', code: 'KeyW' }
+//         );
 
-});
+// });
 
-test('keyboard press \'r\' moves block to the south', () => {
-    const dom_tetrisCont = screen.getByTestId('tetris_cont');
+// test('keyboard press \'r\' moves block to the south', () => {
+//     const dom_tetrisCont = screen.getByTestId('tetris_cont');
 
-    // fire keyDown('s')
-    fireEvent.keyDown(
-        dom_tetrisCont, 
-        { key: 'r', code: 'KeyR' }
-        );
+//     // fire keyDown('s')
+//     fireEvent.keyDown(
+//         dom_tetrisCont, 
+//         { key: 'r', code: 'KeyR' }
+//         );
 
-});
+// });
