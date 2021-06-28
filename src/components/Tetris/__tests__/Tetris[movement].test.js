@@ -36,10 +36,8 @@ test('keyboard press \'s\' moves block to the left', () => {
     // fire keyDown('s')
     // [0] - are there options I can configure to show the event fired? 
 
-    fireEvent.keyDown(
-        dom_tetrisCont, 
-        { key: 's', code: 'KeyS' }
-        );
+    const dom_leftCtrl = screen.getByTestId('control_left');
+    fireEvent.click(dom_leftCtrl);
 
     let postfireCoords = new Set();
 
@@ -53,6 +51,9 @@ test('keyboard press \'s\' moves block to the left', () => {
         }
 
     }
+
+    console.log(prefireCoords, 'prefire coords');
+    console.log(postfireCoords, 'postfire coords');
 
 });
 

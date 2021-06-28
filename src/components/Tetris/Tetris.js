@@ -123,10 +123,10 @@ boardState.board.map((row, r_idx) => (
 {/* dummy controls */}
 <div className='helpers_cont'>
 
-    <button
+    <button data-testid='control_ccw'
     onClick={() => receiveKeyPress('w')}
     >ccw</button>
-    <button
+    <button data-testid='control_cw'
     onClick={() => receiveKeyPress('r')}
     >cw</button>
 
@@ -134,13 +134,13 @@ boardState.board.map((row, r_idx) => (
 
 <div className='helpers_cont'>
 
-    <button
+    <button data-testid='control_left'
     onClick={() => receiveKeyPress('s')}
     >left</button>
-    <button
+    <button data-testid='control_down'
     onClick={() => receiveKeyPress('d')}
     >down</button>
-    <button
+    <button data-testid='control_right'
     onClick={() => receiveKeyPress('f')}
     >right</button>
 
