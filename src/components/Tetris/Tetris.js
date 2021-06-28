@@ -3,6 +3,7 @@ import './styles/_helpers.css';
 import './styles/_tetrisBoard.css';
 import React, { useEffect, useRef, useState } from 'react';
 
+// outside components
 import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 // cell style factories
@@ -119,6 +120,32 @@ boardState.board.map((row, r_idx) => (
 ))
 }
 
+{/* dummy controls */}
+<div className='helpers_cont'>
+
+    <button
+    onClick={() => receiveKeyPress('w')}
+    >ccw</button>
+    <button
+    onClick={() => receiveKeyPress('r')}
+    >cw</button>
+
+</div>
+
+<div className='helpers_cont'>
+
+    <button
+    onClick={() => receiveKeyPress('s')}
+    >left</button>
+    <button
+    onClick={() => receiveKeyPress('d')}
+    >down</button>
+    <button
+    onClick={() => receiveKeyPress('f')}
+    >right</button>
+
+</div>
+
 {/* helper buttons */}
 <div className='helpers_cont'>
     <button className='helpers_btn' ref={startGameButtonBlurRef} data-testid='startGame'
@@ -139,12 +166,16 @@ boardState.board.map((row, r_idx) => (
     </button>
 </div>
 
-{/* key handling */}
+{/* 
+key handling 
+KeyboardEventHandler - might not be super accessible as is seen from tests
+*/}
+
 <KeyboardEventHandler
 handleKeys={['f', 'd', 's', 'r', 'w']}
-onKeyEvent={(key, e) => receiveKeyPress(key)} 
+handleEventType='keydown'
+onKeyEvent={(key, e) => receiveKeyPress(key)}
 />
-
 
 </div>
 </>
