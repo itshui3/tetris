@@ -52,8 +52,9 @@ test('keyboard press \'s\' moves block to the left', () => {
 
     }
 
-    console.log(prefireCoords, 'prefire coords');
-    console.log(postfireCoords, 'postfire coords');
+    prefireCoords.forEach(pre => {
+        expect(postfireCoords.has(pre[0]+'.'+(pre[1]-1))).toBeTruthy();
+    });
 
 });
 
