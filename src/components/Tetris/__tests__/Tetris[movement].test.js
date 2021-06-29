@@ -12,6 +12,8 @@ let prefireCoords = [];
 let dom_tetrisCont;
 
 beforeEach(() => {
+    prefireCoords = [];
+
     render(<Tetris />);
 
     const dom_startGame = screen.getByTestId('startGame');
