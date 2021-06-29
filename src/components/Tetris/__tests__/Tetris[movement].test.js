@@ -78,30 +78,32 @@ test('keyboard press \'d\' moves block to the south', () => {
 
 });
 
-// test('keyboard press \'f\' moves block to the south', () => {
-//     const dom_tetrisCont = screen.getByTestId('tetris_cont');
+test('keyboard press \'f\' moves block to the right', () => {
+    const dom_rightCtrl = screen.getByTestId('control_right');
+    fireEvent.click(dom_rightCtrl);
 
-//     // fire keyDown('s')
-//     fireEvent.keyDown(
-//         dom_tetrisCont, 
-//         { key: 'f', code: 'KeyF' }
-//         );
+    let postfireCoords = new Set();
 
-// });
+    for (let r = 0; r < dom_tetrisCont.children.length; r++) {
 
-// test('keyboard press \'e\' moves block to the south', () => {
-//     const dom_tetrisCont = screen.getByTestId('tetris_cont');
+        for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
+            if (!!dom_tetrisCont.children[r].children[c].style.backgroundColor) {
+                postfireCoords.add(`${r}.${c}`);
+            }
 
-//     // fire keyDown('s')
-//     fireEvent.keyDown(
-//         dom_tetrisCont, 
-//         { key: 'e', code: 'KeyE' }
-//         );
+        }
 
-// });
+    }
 
+    prefireCoords.forEach(pre => {
+        expect(postfireCoords.has(pre[0]+'.'+(pre[1]+1))).toBeTruthy();
+    });
+});
 
-// test('keyboard press \'w\' moves block to the south', () => {
+/*
+rotation movements
+*/
+// test('keyboard press \'w\' rotates block ccw', () => {
 //     const dom_tetrisCont = screen.getByTestId('tetris_cont');
 
 //     // fire keyDown('s')
@@ -112,7 +114,7 @@ test('keyboard press \'d\' moves block to the south', () => {
 
 // });
 
-// test('keyboard press \'r\' moves block to the south', () => {
+// test('keyboard press \'r\' rotates block cw', () => {
 //     const dom_tetrisCont = screen.getByTestId('tetris_cont');
 
 //     // fire keyDown('s')
