@@ -7,21 +7,19 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import Tetris from '../Tetris';
 
 // handleKeys={['f', 'd', 's', 'r', 'w']}
+// which coordinates are occupied? 
+let prefireCoords = [];
+let dom_tetrisCont;
+
 beforeEach(() => {
+    prefireCoords = [];
+
     render(<Tetris />);
-});
-
-test('keyboard press \'s\' moves block to the left', () => {
-    const dom_tetrisCont = screen.getByTestId('tetris_cont');
-
-    // what I want is: 
-    // which coordinates are occupied? 
-    let prefireCoords = [];
 
     const dom_startGame = screen.getByTestId('startGame');
-    // dom_startGame
     fireEvent.click(dom_startGame);
 
+    dom_tetrisCont = screen.getByTestId('tetris_cont');
     for (let r = 0; r < dom_tetrisCont.children.length; r++) {
 
         for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
@@ -32,10 +30,9 @@ test('keyboard press \'s\' moves block to the left', () => {
         }
 
     }
+});
 
-    // fire keyDown('s')
-    // [0] - are there options I can configure to show the event fired? 
-
+test('keyboard press \'s\' moves block to the left', () => {
     const dom_leftCtrl = screen.getByTestId('control_left');
     fireEvent.click(dom_leftCtrl);
 
@@ -58,16 +55,28 @@ test('keyboard press \'s\' moves block to the left', () => {
 
 });
 
-// test('keyboard press \'d\' moves block to the south', () => {
-//     const dom_tetrisCont = screen.getByTestId('tetris_cont');
+test('keyboard press \'d\' moves block to the south', () => {
+    const dom_downCtrl = screen.getByTestId('control_down');
+    fireEvent.click(dom_downCtrl);
 
-//     // fire keyDown('s')
-//     fireEvent.keyDown(
-//         dom_tetrisCont, 
-//         { key: 'd', code: 'KeyD' }
-//         );
+    let postfireCoords = new Set();
 
-// });
+    for (let r = 0; r < dom_tetrisCont.children.length; r++) {
+
+        for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
+            if (!!dom_tetrisCont.children[r].children[c].style.backgroundColor) {
+                postfireCoords.add(`${r}.${c}`);
+            }
+
+        }
+
+    }
+
+    prefireCoords.forEach(pre => {
+        expect(postfireCoords.has((pre[0]+1)+'.'+pre[1])).toBeTruthy();
+    });
+
+});
 
 // test('keyboard press \'f\' moves block to the south', () => {
 //     const dom_tetrisCont = screen.getByTestId('tetris_cont');
