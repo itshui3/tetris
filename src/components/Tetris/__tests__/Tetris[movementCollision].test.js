@@ -31,7 +31,7 @@ beforeEach(() => {
     
 });
 
-// can I simplify this? 
+// left wall collision
 test('active pc stops when reaching left wall', () => {
     const dom_leftCtrl = screen.getByTestId('control_left');
 
@@ -81,7 +81,7 @@ test('active pc stops when reaching left wall', () => {
 
 });
 
-// 
+// right wall collision
 test('active pc stops when reaching right wall', () => {
     const dom_rightCtrl = screen.getByTestId('control_right');
 
