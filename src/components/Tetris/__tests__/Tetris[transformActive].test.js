@@ -7,7 +7,7 @@ import Tetris from '../Tetris';
 
 let shift = NaN; 
 
-let dom_tetrisCont
+let dom_tetrisCont;
 let dom_downCtrl;
 
 beforeEach(() => {
@@ -62,6 +62,7 @@ test('it sets up active pc one row above bottom', () => {
 });
 
 test('it drops active pc to bottom row', () => {
+    fireEvent.click(dom_downCtrl);
     let coords = [];
 
     let lowest = 0;
@@ -76,23 +77,40 @@ test('it drops active pc to bottom row', () => {
         }
 
     }
-    
+
+    expect(lowest).toBe(23);
 });
 
 test('on down action from bottom row spawns a new active pc', () => {
     let coords = [];
 
-    let lowest = 0;
     for (let r = 0; r < dom_tetrisCont.children.length; r++) {
 
         for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
             if (!!dom_tetrisCont.children[r].children[c].style.backgroundColor) {
                 coords.push([r, c]);
-                if (r > lowest) lowest = r;
             }
 
         }
 
     }
+
+    fireEvent.click(dom_downCtrl);
+    fireEvent.click(dom_downCtrl);
+
+    let postfireCoords = [];
+
+    for (let r = 0; r < dom_tetrisCont.children.length; r++) {
+
+        for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
+            if (!!dom_tetrisCont.children[r].children[c].style.backgroundColor) {
+                postfireCoords.push([r, c]);
+            }
+
+        }
+
+    }
+
+    expect(postfireCoords.length).toBeGreaterThan(coords.length);
 
 });
