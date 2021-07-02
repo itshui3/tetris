@@ -5,6 +5,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 
 import Tetris from '../Tetris';
 
+import { getPcs } from '../../../helpers/spec/getPcs';
+
 // handleKeys={['f', 'd', 's', 'r', 'w']}
 let preAdjustCoords = [];
 let dom_tetrisCont;
@@ -18,6 +20,8 @@ beforeEach(() => {
     fireEvent.click(dom_startGame);
 
     dom_tetrisCont = screen.getByTestId('tetris_cont');
+
+    // [0] - get all pcs in list (concerned with active pcs/tetronimo)
     for (let r = 0; r < dom_tetrisCont.children.length; r++) {
 
         for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
@@ -35,6 +39,7 @@ beforeEach(() => {
 test('active pc stops when reaching left wall', () => {
     const dom_leftCtrl = screen.getByTestId('control_left');
 
+    // due to random tetronimo, find how many times pc needs to shift to reach wall
     let minY = Infinity;
 
     for (let i = 0; i < preAdjustCoords.length; i++) {
@@ -48,6 +53,7 @@ test('active pc stops when reaching left wall', () => {
 
     let prefireCoords = [];
 
+    // [1] - get all pcs return in list (concerned with tetronimo)
     for (let r = 0; r < dom_tetrisCont.children.length; r++) {
 
         for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
@@ -63,6 +69,7 @@ test('active pc stops when reaching left wall', () => {
 
     let postfireCoords = new Set();
 
+    // [2] get all pcs, return as Set (concerned with active tetronimo)
     for (let r = 0; r < dom_tetrisCont.children.length; r++) {
 
         for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
@@ -98,6 +105,7 @@ test('active pc stops when reaching right wall', () => {
 
     let prefireCoords = [];
 
+    // [3] - get all pcs, return as list ( concerned with active tetronimo)
     for (let r = 0; r < dom_tetrisCont.children.length; r++) {
 
         for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
@@ -113,6 +121,7 @@ test('active pc stops when reaching right wall', () => {
 
     let postfireCoords = new Set();
 
+    // [4] - get all pcs, return as Set (concerned with active tetronimo)
     for (let r = 0; r < dom_tetrisCont.children.length; r++) {
 
         for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
