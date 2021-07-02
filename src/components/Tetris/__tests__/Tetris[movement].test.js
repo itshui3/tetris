@@ -37,17 +37,6 @@ test('keyboard press \'s\' moves block to the left', () => {
     const { activePcsSet } = getPcs(dom_tetrisCont);
     let postfireCoords = activePcsSet;
 
-    // for (let r = 0; r < dom_tetrisCont.children.length; r++) {
-
-    //     for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
-    //         if (!!dom_tetrisCont.children[r].children[c].style.backgroundColor) {
-    //             postfireCoords.add(`${r}.${c}`);
-    //         }
-
-    //     }
-
-    // }
-
     prefireCoords.forEach(pre => {
         expect(postfireCoords.has(pre[0]+'.'+(pre[1]-1))).toBeTruthy();
     });
@@ -59,17 +48,8 @@ test('keyboard press \'d\' moves block to the south', () => {
     fireEvent.click(dom_downCtrl);
 
     // [2] - get all active & static pcs in set (concerned with active tetronimo)
-    let postfireCoords = new Set();
-    for (let r = 0; r < dom_tetrisCont.children.length; r++) {
-
-        for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
-            if (!!dom_tetrisCont.children[r].children[c].style.backgroundColor) {
-                postfireCoords.add(`${r}.${c}`);
-            }
-
-        }
-
-    }
+    const { activePcsSet } = getPcs(dom_tetrisCont);
+    let postfireCoords = activePcsSet;
 
     prefireCoords.forEach(pre => {
         expect(postfireCoords.has((pre[0]+1)+'.'+pre[1])).toBeTruthy();
@@ -82,17 +62,8 @@ test('keyboard press \'f\' moves block to the right', () => {
     fireEvent.click(dom_rightCtrl);
 
     // [3] - get all active & static pcs in set (concerned with active tetronimo)
-    let postfireCoords = new Set();
-    for (let r = 0; r < dom_tetrisCont.children.length; r++) {
-
-        for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
-            if (!!dom_tetrisCont.children[r].children[c].style.backgroundColor) {
-                postfireCoords.add(`${r}.${c}`);
-            }
-
-        }
-
-    }
+    const { activePcsSet } = getPcs(dom_tetrisCont);
+    let postfireCoords = activePcsSet;
 
     prefireCoords.forEach(pre => {
         expect(postfireCoords.has(pre[0]+'.'+(pre[1]+1))).toBeTruthy();
