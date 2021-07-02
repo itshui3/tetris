@@ -27,16 +27,6 @@ beforeEach(() => {
     const { activePcsList } = getPcs(dom_tetrisCont);
     prefireCoords = activePcsList;
 
-    // for (let r = 0; r < dom_tetrisCont.children.length; r++) {
-
-    //     for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
-    //         if (!!dom_tetrisCont.children[r].children[c].style.backgroundColor) {
-    //             prefireCoords.push([r, c]);
-    //         }
-
-    //     }
-
-    // }
 });
 
 test('keyboard press \'s\' moves block to the left', () => {
@@ -44,17 +34,19 @@ test('keyboard press \'s\' moves block to the left', () => {
     fireEvent.click(dom_leftCtrl);
 
     // [1] - get all active & static pcs in set (concerned with active tetronimo)
-    let postfireCoords = new Set();
-    for (let r = 0; r < dom_tetrisCont.children.length; r++) {
+    const { activePcsSet } = getPcs(dom_tetrisCont);
+    let postfireCoords = activePcsSet;
 
-        for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
-            if (!!dom_tetrisCont.children[r].children[c].style.backgroundColor) {
-                postfireCoords.add(`${r}.${c}`);
-            }
+    // for (let r = 0; r < dom_tetrisCont.children.length; r++) {
 
-        }
+    //     for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
+    //         if (!!dom_tetrisCont.children[r].children[c].style.backgroundColor) {
+    //             postfireCoords.add(`${r}.${c}`);
+    //         }
 
-    }
+    //     }
+
+    // }
 
     prefireCoords.forEach(pre => {
         expect(postfireCoords.has(pre[0]+'.'+(pre[1]-1))).toBeTruthy();
