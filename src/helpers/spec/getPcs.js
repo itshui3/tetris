@@ -29,7 +29,7 @@ function getPcs(dom_tetrisCont) {
                 } else {
                     // inactive pc
                     staticPcsList.push([r, c]);
-                    staticPcsList.add(`${r}.${c}`);
+                    staticPcsSet.add(`${r}.${c}`);
                 }
 
             }
