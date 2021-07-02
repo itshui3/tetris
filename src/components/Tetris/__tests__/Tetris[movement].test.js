@@ -24,16 +24,19 @@ beforeEach(() => {
     dom_tetrisCont = screen.getByTestId('tetris_cont');
 
     // [0] - get all active & static pcs in array (concerned wtih active tetronimo)
-    for (let r = 0; r < dom_tetrisCont.children.length; r++) {
+    const { activePcsList } = getPcs(dom_tetrisCont);
+    prefireCoords = activePcsList;
 
-        for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
-            if (!!dom_tetrisCont.children[r].children[c].style.backgroundColor) {
-                prefireCoords.push([r, c]);
-            }
+    // for (let r = 0; r < dom_tetrisCont.children.length; r++) {
 
-        }
+    //     for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
+    //         if (!!dom_tetrisCont.children[r].children[c].style.backgroundColor) {
+    //             prefireCoords.push([r, c]);
+    //         }
 
-    }
+    //     }
+
+    // }
 });
 
 test('keyboard press \'s\' moves block to the left', () => {
