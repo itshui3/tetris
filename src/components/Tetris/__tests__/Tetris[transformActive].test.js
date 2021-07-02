@@ -52,9 +52,9 @@ test('tests down action from bottom row transforms active pc', () => {
     fireEvent.click(dom_downCtrl);
 
     const { staticPcsList } = getPcs(dom_tetrisCont);
-    const postfireCoordsList = staticPcsList;
+    const postfireStaticList = staticPcsList;
 
-    postfireCoordsList.forEach((c) => {
+    postfireStaticList.forEach((c) => {
 
         expect(prefireCoordsSet.has(`${c[0]}.${c[1]}`)).toBeTruthy();
     });
@@ -62,59 +62,21 @@ test('tests down action from bottom row transforms active pc', () => {
 });
 
 test('tests down action from bottom row spawns a new active pc', () => {
+    // floor
     fireEvent.click(dom_downCtrl);
 
-    let activeCoords = new Set();
     const { activePcsSet } = getPcs(dom_tetrisCont);
-    // [5]
-    for (let r = 0; r < dom_tetrisCont.children.length; r++) {
+    let prefireActiveCoords = activePcsSet;
 
-        for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
-            if (!!dom_tetrisCont.children[r].children[c].style.backgroundColor) {
-                // these cells need to be tomato colored
-
-                activeCoords.add(`${r}.${c}`);
-            }
-
-        }
-
-    }
-
+    // transform
     fireEvent.click(dom_downCtrl);
 
-    let postfireCoordsStatic = [];
-    let postfireCoordsActive = [];
+    const { activePcsList } = getPcs(dom_tetrisCont);
+    let postfireActiveList = activePcsList;
 
-    // [6]
-    for (let r = 0; r < dom_tetrisCont.children.length; r++) {
-
-        for (let c = 0; c < dom_tetrisCont.children[r].children.length; c++) {
-            if (!!dom_tetrisCont.children[r].children[c].style.backgroundColor) {
-
-                if (dom_tetrisCont.children[r].children[c].style.backgroundColor === 'black') {
-                    postfireCoordsStatic.push([r, c]);
-                }
-                
-                if (dom_tetrisCont.children[r].children[c].style.backgroundColor !== 'black') {
-                    postfireCoordsActive.push([r, c]);
-                }
-
-            }
-
-        }
-
-    }
-// it transforms floored active to static blocks
-    postfireCoordsStatic.forEach(c => {
-
-        expect(activeCoords.has(`${c[0]}.${c[1]}`)).toBeTruthy();
-
-    });
 // it spawns a new active tetronimo
-    postfireCoordsActive.forEach(c => {
-
-        expect(activeCoords.has(`${c[0]}.${c[1]}`)).toBeFalsy();
-
+    postfireActiveList.forEach(c => {
+        expect(prefireActiveCoords.has(`${c[0]}.${c[1]}`)).toBeFalsy();
     });
 
 });
