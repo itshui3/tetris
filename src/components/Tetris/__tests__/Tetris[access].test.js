@@ -4,9 +4,10 @@ import React from 'react';
 import { screen, render } from '@testing-library/react';
 
 import Tetris from '../Tetris';
+import { initBoard, gamePcs } from '../useTetrisHooks';
 
 beforeEach(() => {
-    render(<Tetris />);
+    render(<Tetris initBoard={initBoard(gamePcs)} />);
 });
 
 test('it renders Tetris component', () => {

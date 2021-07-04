@@ -4,7 +4,11 @@ import './App.css';
 import {
     Header,
     Tetris
-} from './components'
+} from './components';
+
+import {
+    initBoard, gamePcs
+} from './components/Tetris/useTetrisHooks';
 
 function App() {
 return (
@@ -12,7 +16,7 @@ return (
 <div className='centered_cont'>
 
     <Header />
-    <Tetris />
+    <Tetris initBoard={initBoard(gamePcs)} />
 
 </div>
 </div>

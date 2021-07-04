@@ -18,7 +18,7 @@ import { clearLines } from './assets/clearLines.js';
 // tetris state assets
 import {
     useTetris,
-    initBoard,
+    // initBoard,
     BOARD_ACTIONS,
     boardReducer,
 } from './useTetrisHooks';
@@ -39,7 +39,7 @@ const lineActions = {
     'update': BOARD_ACTIONS.UPDATE,
 };
 
-function Tetris() {
+function Tetris({ initBoard }) {
 
     const startGameButtonBlurRef = useRef();
     const killActiveButtonBlurRef = useRef();

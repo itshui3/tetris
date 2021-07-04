@@ -1,26 +1,32 @@
 
 import produce from 'immer';
 import { emptyBoard } from '../assets/emptyBoard.js';
-import { buildPc } from '../assets/buildPc.js';
+import { buildPcFactory, gamePcs } from '../assets/buildPc.js';
 import { canHasMovement } from '../assets/canHasMovement';
 import { transformPc } from '../assets/transformPc';
 import { canHasRotation } from '../assets/canHasRotation';
 
-const initBoard = {
-    board: emptyBoard,
-    // pieces
-    activePc: {},
-    /*
-    {pivot[y, x], form, forms[...[]], color}
-    */
+const initBoard = (gamePcs) => { 
+    return {
+        board: emptyBoard,
+        // pieces
+        activePc: {},
+        /*
+        {pivot[y, x], form, forms[...[]], color}
+        */
 
-    inWaitingPc: {},
+        inWaitingPc: {},
 
-    combo: 0,
-    points: 0,
+        combo: 0,
+        points: 0,
 
-    gameActive: false,
-};
+        gameActive: false,
+        buildPc: buildPcFactory(gamePcs)
+    };
+}
+
+// constructing while pointing at normal gamePcs
+const buildPc = buildPcFactory(gamePcs);
 
 const BOARD_ACTIONS = {
     START: 'start_game',

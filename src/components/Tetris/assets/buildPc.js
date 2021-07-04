@@ -75,7 +75,7 @@ const Zblock = {
     color: 'firebrick'
 }
 
-const pcs = [
+const gamePcs = [
     // dummy pieces
     // singlePc,
     // triplePc,
@@ -89,11 +89,26 @@ const pcs = [
     Sblock,
     Tblock,
     Zblock,
+];
 
-]
+const dummyTriPc = {
+    pivot: [1, 1 + startingX],
+    forms: [
+        [ [-1, 0], [1, 0] ],
+        [ [0, -1], [0, 1] ],
+    ],
+    color: 'firebrick'
+};
 
-const buildPc = () => pcs[Math.floor((Math.random() * pcs.length))]
+const dummyPcs = [
+    dummyTriPc
+];
+
+const buildPcFactory = (pcs) => () => pcs[Math.floor((Math.random() * pcs.length))];
 
 export {
-    buildPc
-}
+    buildPcFactory,
+
+    gamePcs,
+    dummyPcs
+};
