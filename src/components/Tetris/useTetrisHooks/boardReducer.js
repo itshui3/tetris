@@ -1,7 +1,7 @@
 
 import produce from 'immer';
 import { emptyBoard } from '../assets/emptyBoard.js';
-import { buildPc } from '../assets/buildPc.js';
+import { buildPcFactory, gamePcs } from '../assets/buildPc.js';
 import { canHasMovement } from '../assets/canHasMovement';
 import { transformPc } from '../assets/transformPc';
 import { canHasRotation } from '../assets/canHasRotation';
@@ -20,7 +20,10 @@ const initBoard = {
     points: 0,
 
     gameActive: false,
+    gamePcs
 };
+
+const buildPc = buildPcFactory(gamePcs);
 
 const BOARD_ACTIONS = {
     START: 'start_game',
