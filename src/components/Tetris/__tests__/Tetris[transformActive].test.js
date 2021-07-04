@@ -4,6 +4,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 
 import Tetris from '../Tetris';
+import { initBoard } from '../useTetrisHooks';
 
 import { getPcs } from '../../../helpers/spec/getPcs';
 
@@ -11,7 +12,7 @@ let dom_tetrisCont;
 let dom_downCtrl;
 
 beforeEach(() => {
-    render(<Tetris />);
+    render(<Tetris initBoard={initBoard} />);
 
     const dom_startGame = screen.getByTestId('startGame');
     fireEvent.click(dom_startGame);
