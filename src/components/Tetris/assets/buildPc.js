@@ -104,11 +104,11 @@ const dummyPcs = [
     dummyTriPc
 ];
 
-const buildPcFactory = (pcs) => () => pcs[Math.floor((Math.random() * pcs.length))]
+const buildPcFactory = (pcs) => () => pcs[Math.floor((Math.random() * pcs.length))];
 
 export {
     buildPcFactory,
 
     gamePcs,
     dummyPcs
-}
+};
