@@ -7,7 +7,7 @@ import {
 } from './components';
 
 import {
-    initBoard, gamePcs
+    initBoard, gamePcs, dummyPcs
 } from './components/Tetris/useTetrisHooks';
 
 function App() {
@@ -16,7 +16,7 @@ return (
 <div className='centered_cont'>
 
     <Header />
-    <Tetris initBoard={initBoard(gamePcs)} />
+    <Tetris initBoard={initBoard(dummyPcs)} />
 
 </div>
 </div>
