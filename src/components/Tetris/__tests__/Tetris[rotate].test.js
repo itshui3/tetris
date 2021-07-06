@@ -22,9 +22,17 @@ test('it rotates active pc ccw', () => {
 
     const before = getPcs(dom_tetris);
 
+    verticalTriPc.forEach(v_pc => {
+        expect(before.activePcsSet).toContain(v_pc);
+    });
+
 
     fireEvent.click(dom_ccw);
     const after = getPcs(dom_tetris);
+
+    horizontalTriPc.forEach(h_pc => {
+        expect(after.activePcsSet).toContain(h_pc);
+    });
 
 });
 
