@@ -1,4 +1,5 @@
 
+import React, { useEffect } from 'react';
 import './App.css';
 
 import {
@@ -7,7 +8,7 @@ import {
 } from './components';
 
 import {
-    initBoard, gamePcs
+    initBoard, gamePcs, dummyPcs
 } from './components/Tetris/useTetrisHooks';
 
 function App() {

@@ -27,7 +27,7 @@ beforeEach(() => {
     // [0] - get all active & static pcs in array (concerned wtih active tetronimo)
     const { activePcsList } = getPcs(dom_tetrisCont);
     prefireCoords = activePcsList;
-
+    
 });
 
 test('keyboard press \'s\' moves block to the left', () => {
