@@ -7,17 +7,48 @@ import { getPcs } from '../../../helpers/spec/getPcs';
 
 import { initBoard, dummyPcs } from '../useTetrisHooks';
 
-beforeEach(() => {
+const verticalTriPc = [ '0.5', '1.5', '2.5' ];
+const horizontalTriPc = ['1.4', '1.5', '1.6'];
+
+test('it rotates active pc ccw', () => {
     render(<Tetris initBoard={initBoard(dummyPcs)} />);
 
     const dom_startGame = screen.getByTestId('startGame');
     fireEvent.click(dom_startGame);
-});
-// why is it rendering no piece? 
-test('it renders dummy pc', () => {
+
     const dom_tetris = screen.getByTestId('tetris_cont');
 
-    const renderedPc = getPcs(dom_tetris);
+    const dom_ccw = screen.getByTestId('control_ccw');
 
-    console.log(renderedPc);
+    const before = getPcs(dom_tetris);
+
+
+    fireEvent.click(dom_ccw);
+    const after = getPcs(dom_tetris);
+
+});
+
+test('it rotates piece cw', () => {
+    render(<Tetris initBoard={initBoard(dummyPcs)} />);
+
+    const dom_startGame = screen.getByTestId('startGame');
+    fireEvent.click(dom_startGame);
+
+    const dom_tetris = screen.getByTestId('tetris_cont');
+
+    const dom_cw = screen.getByTestId('control_cw');
+
+    const before = getPcs(dom_tetris);
+
+    verticalTriPc.forEach(v_pc => {
+        expect(before.activePcsSet).toContain(v_pc);
+    });
+
+    fireEvent.click(dom_cw);
+    const after = getPcs(dom_tetris);
+
+    horizontalTriPc.forEach(h_pc => {
+        expect(after.activePcsSet).toContain(h_pc);
+    });
+
 });

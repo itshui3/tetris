@@ -19,7 +19,6 @@ if(CW === dir) {
 }
 
 if(CCW === dir) {
-    console.log('validate CCW')
     nextForm = activePc.form === 0 ? activePc.forms.length-1 : activePc.form-1;
 }
     let pivot = activePc.pivot
@@ -27,8 +26,6 @@ if(CCW === dir) {
     const builtForm = [activePc.pivot, ...activePc.forms[nextForm].map((block, idx) => {
         return [block[0] + pivot[0], block[1] + pivot[1]]
     })]
-
-    console.log('builtForm', builtForm);
 
     const canHasRotate = builtForm.reduce((prev, block) => {
         if (!prev) { return prev }
