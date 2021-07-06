@@ -26,7 +26,7 @@ const initBoard = (gamePcs) => {
 }
 
 // constructing while pointing at normal gamePcs
-const buildPc = buildPcFactory(gamePcs);
+// const buildPc = buildPcFactory(gamePcs);
 
 const BOARD_ACTIONS = {
     START: 'start_game',
@@ -75,7 +75,7 @@ const boardReducer = (state, { type, payload }) => {
 
         case PULL_ACTIVE: 
             return produce(state, draft => {
-                const builtPc = {...buildPc(), form: 0 }
+                const builtPc = {...draft.buildPc(), form: 0 }
                 draft.activePc = builtPc
             })
 
