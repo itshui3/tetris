@@ -9,6 +9,9 @@ import { initBoard, dummyPcs } from '../useTetrisHooks';
 
 beforeEach(() => {
     render(<Tetris initBoard={initBoard(dummyPcs)} />);
+
+    const dom_startGame = screen.getByTestId('startGame');
+    fireEvent.click(dom_startGame);
 });
 // why is it rendering no piece? 
 test('it renders dummy pc', () => {

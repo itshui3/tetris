@@ -77,12 +77,12 @@ const boardReducer = (state, { type, payload }) => {
             return produce(state, draft => {
                 const builtPc = {...draft.buildPc(), form: 0 }
                 draft.activePc = builtPc
-            })
+            });
 
         case KILL_ACTIVE: 
             return produce(state, draft => {
                 draft.activePc = {}
-            })
+            });
 
         case RIGHT: 
             const moveRightObj = canHasMovement(state.board, state.activePc, type);

@@ -12,18 +12,12 @@ import {
 } from './components/Tetris/useTetrisHooks';
 
 function App() {
-
-useEffect(() => {
-    console.log(gamePcs, 'gamePcs');
-    console.log(dummyPcs, 'dummyPcs');
-}, []);
-
 return (
 <div className="centering_wrapper" data-testid="app_cont">
 <div className='centered_cont'>
 
     <Header />
-    <Tetris initBoard={initBoard(dummyPcs)} />
+    <Tetris initBoard={initBoard(gamePcs)} />
 
 </div>
 </div>
