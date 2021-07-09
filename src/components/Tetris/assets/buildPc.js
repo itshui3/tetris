@@ -1,5 +1,5 @@
 
-const startingX = 4
+const startingX = 4;
 
 const Iblock = {
     pivot: [0, 1 + startingX],
@@ -10,7 +10,7 @@ const Iblock = {
         [ [-2, 0], [-1, 0], [1, 0] ],
     ],
     color: 'cyan'
-}
+};
 
 const Jblock = {
     pivot: [1, 1 + startingX],
@@ -21,7 +21,7 @@ const Jblock = {
         [ [1, -1], [1, 0], [-1, 0] ]
     ],
     color: 'dodgerblue'
-}
+};
 
 const Lblock = {
     pivot: [1, 1 + startingX],
@@ -32,7 +32,7 @@ const Lblock = {
         [ [-1, -1], [-1, 0], [1, 0] ]
     ],
     color: 'tomato'
-}
+};
 
 const Oblock = {
     pivot: [0, 0 + startingX],
@@ -40,7 +40,7 @@ const Oblock = {
         [ [1, 0], [0, 1], [1, 1] ]
     ],
     color: 'yellow'
-}
+};
 
 const Sblock = {
     pivot: [1, 1 + startingX],
@@ -51,7 +51,7 @@ const Sblock = {
         [ [-1, -1], [0, -1], [1, 0] ]
     ],
     color: 'forestgreen'
-}
+};
 
 const Tblock = {
     pivot: [1, 1 + startingX],
@@ -62,7 +62,7 @@ const Tblock = {
         [ [0, -1], [-1, 0], [1, 0] ]
     ],
     color: 'indigo'
-}
+};
 
 const Zblock = {
     pivot: [1, 1 + startingX],
@@ -73,7 +73,7 @@ const Zblock = {
         [ [-1, 0], [0, -1], [1, -1] ]
     ],
     color: 'firebrick'
-}
+};
 
 const gamePcs = [
     // dummy pieces

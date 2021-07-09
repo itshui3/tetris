@@ -47,29 +47,29 @@ function Tetris({ initBoard }) {
     const [boardState, dispatchBoard] = useTetris(boardReducer, initBoard);
     const [dropInt, setDropInt] = useState(null);
 
-// dropInterval
-useEffect(() => {
-
-if (boardState.gameActive) {
-
-    setDropInt( setInterval(() => {
-
-        dispatchBoard({ type: BOARD_ACTIONS.DOWN });
-    }, 500) );
-
-} else {
-    if (dropInt) {
-        setDropInt(null);
-        clearInterval(dropInt);
-    }
-}
-
-return () => clearInterval(dropInt);
-    
-}, [boardState.gameActive]);
-
+    // dropInterval
     useEffect(() => {
 
+    if (boardState.gameActive) {
+
+        setDropInt( setInterval(() => {
+
+            dispatchBoard({ type: BOARD_ACTIONS.DOWN });
+        }, 500) );
+
+    } else {
+        if (dropInt) {
+            setDropInt(null);
+            clearInterval(dropInt);
+        }
+    }
+
+    return () => clearInterval(dropInt);
+        
+    }, [boardState.gameActive]);
+
+    useEffect(() => {
+        // why is game not ending? 
         if (boardState.board[0].find((block) => block > 0)) {
             dispatchBoard({ type: BOARD_ACTIONS.END });
         }
@@ -85,7 +85,7 @@ return () => clearInterval(dropInt);
             // clearLines: updatedBoard: [...[...], etc]
         }
 
-    }, [boardState.board, dispatchBoard]);
+    }, [boardState.board]);
 
     const receiveKeyPress = (key) => {
         // listen for key actions

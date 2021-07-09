@@ -63,7 +63,10 @@ const boardReducer = (state, { type, payload }) => {
     switch(type) {
         case START:
             return produce(state, draft => {
-                draft.board = emptyBoard;
+                if (draft.gameActive === true) {
+                    draft.board = emptyBoard;
+                }
+
                 draft.activePc = {};
                 draft.gameActive = true;
             });
@@ -71,12 +74,13 @@ const boardReducer = (state, { type, payload }) => {
         case END: 
             return produce(state, draft => {
                 draft.gameActive = false;
+                draft.board = emptyBoard;
             });
 
         case PULL_ACTIVE: 
             return produce(state, draft => {
-                const builtPc = {...draft.buildPc(), form: 0 }
-                draft.activePc = builtPc
+                const builtPc = {...draft.buildPc(), form: 0 };
+                draft.activePc = builtPc;
             });
 
         case KILL_ACTIVE: 

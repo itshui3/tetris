@@ -11,6 +11,8 @@ import {
     initBoard, gamePcs, dummyPcs
 } from './components/Tetris/useTetrisHooks';
 
+import { lineBoard } from './components/Tetris/assets/lineBoard';
+
 function App() {
 return (
 <div className="centering_wrapper" data-testid="app_cont">
