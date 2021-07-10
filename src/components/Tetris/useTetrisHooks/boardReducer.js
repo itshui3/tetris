@@ -31,6 +31,7 @@ const initBoard = (gamePcs) => {
 const BOARD_ACTIONS = {
     START: 'start_game',
     END: 'end_game',
+    RESET: 'reset_game',
 
     PULL_ACTIVE: 'pull_active',
     KILL_ACTIVE: 'kill_active',
@@ -62,12 +63,11 @@ const boardReducer = (state, { type, payload }) => {
 
     switch(type) {
         case START: 
-            if (state.gameActive === true) return;
+            if (state.gameActive === true) return state;
 
-            if (state.board !== emptyBoard) {
-                console.log('board not empty');
-                return;
-            }
+            if (state.board !== emptyBoard) return state;
+
+            if (Object.keys(state.activePc).length > 0) return state;
 
             return produce(state, draft => {
                 // draft.activePc = {};
@@ -77,7 +77,6 @@ const boardReducer = (state, { type, payload }) => {
         case END: 
             return produce(state, draft => {
                 draft.gameActive = false;
-                // I can affix .gameActive state to whether dropInterval is occurring
             });
 
         case RESET:

@@ -43,6 +43,8 @@ function Tetris({ initBoard }) {
 
     const startGameButtonBlurRef = useRef();
     const killActiveButtonBlurRef = useRef();
+    const endGameButtonBlurRef = useRef();
+    const resetGameButtonBlurRef = useRef();
 
     const [boardState, dispatchBoard] = useTetris(boardReducer, initBoard);
     const [dropInt, setDropInt] = useState(null);
@@ -121,50 +123,67 @@ return (
     }
     </div>
     <div className='controllers_cont'>
-        {/* dummy controls */}
+        {/* rotations */}
         <div className='helpers_cont'>
 
-        <button data-testid='control_ccw'
-        onClick={() => receiveKeyPress('w')}
-        >ccw</button>
-        <button data-testid='control_cw'
-        onClick={() => receiveKeyPress('r')}
-        >cw</button>
+            <button data-testid='control_ccw'
+            onClick={() => receiveKeyPress('w')}
+            >ccw</button>
+            <button data-testid='control_cw'
+            onClick={() => receiveKeyPress('r')}
+            >cw</button>
 
         </div>
 
+        {/* directions */}
         <div className='helpers_cont'>
 
-        <button data-testid='control_left'
-        onClick={() => receiveKeyPress('s')}
-        >left</button>
-        <button data-testid='control_down'
-        onClick={() => receiveKeyPress('d')}
-        >down</button>
-        <button data-testid='control_right'
-        onClick={() => receiveKeyPress('f')}
-        >right</button>
+            <button data-testid='control_left'
+            onClick={() => receiveKeyPress('s')}
+            >left</button>
+            <button data-testid='control_down'
+            onClick={() => receiveKeyPress('d')}
+            >down</button>
+            <button data-testid='control_right'
+            onClick={() => receiveKeyPress('f')}
+            >right</button>
 
         </div>
 
-        {/* helper buttons */}
+        {/* game */}
         <div className='helpers_cont'>
-        <button className='helpers_btn' ref={startGameButtonBlurRef} data-testid='startGame'
-        onClick={() => {
-            dispatchBoard({type: BOARD_ACTIONS.START});
-            startGameButtonBlurRef.current.blur();
-        }}
-        >
-            Start Game
-        </button>
-        <button className='helpers_btn' ref={killActiveButtonBlurRef} data-testid='killActive'
-        onClick={() => {
-            dispatchBoard({type: KILL_ACTIVE});
-            killActiveButtonBlurRef.current.blur();
-        }}
-        >
-        kill active pc
-        </button>
+            <button className='helpers_btn' ref={startGameButtonBlurRef} data-testid='startGame'
+            onClick={() => {
+                console.log('startGame btn handling');
+                dispatchBoard({type: BOARD_ACTIONS.START});
+                startGameButtonBlurRef.current.blur();
+            }}
+            >Start Game</button>
+
+            <button className='helpers_btn' ref={endGameButtonBlurRef} data-testid='endGame'
+            onClick={() => {
+                dispatchBoard({type: BOARD_ACTIONS.END});
+                endGameButtonBlurRef.current.blur();
+            }}
+            >End Game</button>
+
+            <button className='helpers_btn' ref={resetGameButtonBlurRef} data-testid='endGame'
+            onClick={() => {
+                dispatchBoard({type: BOARD_ACTIONS.RESET});
+                resetGameButtonBlurRef.current.blur();
+            }}
+            >Reset Game</button>
+
+        </div>
+
+        {/* mod */}
+        <div className='helpers_cont'>
+            <button className='helpers_btn' ref={killActiveButtonBlurRef} data-testid='killActive'
+            onClick={() => {
+                dispatchBoard({type: KILL_ACTIVE});
+                killActiveButtonBlurRef.current.blur();
+            }}
+            >kill active pc</button>
         </div>
 
         {/* 
