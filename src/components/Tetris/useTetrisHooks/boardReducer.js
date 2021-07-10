@@ -48,7 +48,7 @@ const BOARD_ACTIONS = {
 };
 
 const {
-    START, END,
+    START, END, RESET, 
     // pc handling
     PULL_ACTIVE, KILL_ACTIVE, 
     // keyPress handling
@@ -61,19 +61,28 @@ const {
 const boardReducer = (state, { type, payload }) => {
 
     switch(type) {
-        case START:
-            return produce(state, draft => {
-                if (draft.gameActive === true) {
-                    draft.board = emptyBoard;
-                }
+        case START: 
+            if (state.gameActive === true) return;
 
-                draft.activePc = {};
+            if (state.board !== emptyBoard) {
+                console.log('board not empty');
+                return;
+            }
+
+            return produce(state, draft => {
+                // draft.activePc = {};
                 draft.gameActive = true;
             });
 
         case END: 
             return produce(state, draft => {
                 draft.gameActive = false;
+                // I can affix .gameActive state to whether dropInterval is occurring
+            });
+
+        case RESET:
+            return produce(state, draft => {
+                draft.activePc = {};
                 draft.board = emptyBoard;
             });
 
