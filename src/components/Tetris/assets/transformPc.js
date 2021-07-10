@@ -1,11 +1,11 @@
 
 
-import produce from 'immer'
+import produce from 'immer';
 const transformPc = (activePc, board) => {
 
     const buildForm = [activePc.pivot, ...activePc.forms[activePc.form].map((point, idx) => {
         return [point[0] + activePc.pivot[0], point[1] + activePc.pivot[1]]
-    })]
+    })];
 
     return buildForm.reduce( (prev, cur) => {
 
@@ -16,8 +16,8 @@ const transformPc = (activePc, board) => {
             draft[activeY][activeX] = 1
         })
 
-    }, board)
+    }, board);
 
-}
+};
 
-export { transformPc }
+export { transformPc };

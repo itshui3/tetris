@@ -31,6 +31,7 @@ const initBoard = (gamePcs) => {
 const BOARD_ACTIONS = {
     START: 'start_game',
     END: 'end_game',
+    RESET: 'reset_game',
 
     PULL_ACTIVE: 'pull_active',
     KILL_ACTIVE: 'kill_active',
@@ -48,7 +49,7 @@ const BOARD_ACTIONS = {
 };
 
 const {
-    START, END,
+    START, END, RESET, 
     // pc handling
     PULL_ACTIVE, KILL_ACTIVE, 
     // keyPress handling
@@ -61,19 +62,26 @@ const {
 const boardReducer = (state, { type, payload }) => {
 
     switch(type) {
-        case START:
-            return produce(state, draft => {
-                if (draft.gameActive === true) {
-                    draft.board = emptyBoard;
-                }
+        case START: 
+            if (state.gameActive === true) return state;
 
-                draft.activePc = {};
+            if (state.board !== emptyBoard) return state;
+
+            if (Object.keys(state.activePc).length > 0) return state;
+
+            return produce(state, draft => {
+                // draft.activePc = {};
                 draft.gameActive = true;
             });
 
         case END: 
             return produce(state, draft => {
                 draft.gameActive = false;
+            });
+
+        case RESET:
+            return produce(state, draft => {
+                draft.activePc = {};
                 draft.board = emptyBoard;
             });
 
