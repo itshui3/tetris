@@ -80,6 +80,8 @@ const boardReducer = (state, { type, payload }) => {
             });
 
         case RESET:
+            if (state.gameActive === true) return state;
+
             return produce(state, draft => {
                 draft.activePc = {};
                 draft.board = emptyBoard;
