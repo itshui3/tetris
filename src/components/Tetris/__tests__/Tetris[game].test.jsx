@@ -78,7 +78,31 @@ test('ending tetris should stop active pc from dropping asynchronously', () => u
 
 //=====================
 // [] - resetGame suite
-test('tetris resets only if game is ended', () => undefined);
+test('tetris resets only if game is ended', () => {
+    // dependencies
+    const dom_tetris = screen.getByTestId('tetris_cont');
+    const dom_startGame = screen.getByTestId('startGame');
+    const dom_endGame = screen.getByTestId('endGame');
+    const dom_resetGame = screen.getByTestId('resetGame');
+
+    // [0] - start game
+    fireEvent.click(dom_startGame);
+    // [1] - sanity check that game has started 
+    const prefirePcs = getPcs(dom_tetris);
+    expect(prefirePcs.activePcsList.length).toBeGreaterThanOrEqual(1);
+    // [2] - expect game cannot reset
+    fireEvent.click(dom_resetGame);
+    const sanityPcs = getPcs(dom_tetris);
+    expect(sanityPcs).toEqual(prefirePcs);
+    // [3] - end game
+    fireEvent.click(dom_endGame);
+    // [4] - reset the game
+    fireEvent.click(dom_resetGame);
+    // [5] - expect game to have reset
+    const postfirePcs = getPcs(dom_tetris);
+    expect(postfirePcs.activePcsList.length).toBe(0);
+
+});
 // if there are no pcs, either the board has already been reset or no games have been played yet
 test('tetris resets only if pieces are leftover', () => undefined);
 test('tetris resets wipe active/static pcs', () => undefined);
