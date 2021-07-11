@@ -27,8 +27,29 @@ test('starting tetris should spawn an active pc', () => {
     const postfirePcs = getPcs(dom_tetris);
     expect(postfirePcs.activePcsList.length).toBeGreaterThanOrEqual(1);
 });
+
 // only an ended && reset game would have no pcs in play
-test('tetris should only start if there are no pcs in play', () => undefined);
+// here I can only test that it's gonna be the same piece
+// I don't know how to determine the listener didn't dispatch another start action
+// I can shift the piece by one
+test('tetris should only start if there are no pcs in play', () => {
+    const dom_tetris = screen.getByTestId('tetris_cont');
+
+    const dom_startGame = screen.getByTestId('startGame');
+    fireEvent.click(dom_startGame);
+
+    const dom_downCtrl = screen.getByTestId('control_down');
+    fireEvent.click(dom_downCtrl);
+
+    const prefirePcs = getPcs(dom_tetris);
+
+    // attempt to start the game while the game is already started 
+    fireEvent.click(dom_startGame);
+
+    const postfirePcs = getPcs(dom_tetris);
+
+    expect(prefirePcs.activePcsList).toEqual(postfirePcs.activePcsList);
+});
 
 //====================
 // [] - endGame suite
