@@ -16,44 +16,63 @@ beforeEach(() => {
 //=====================
 // [] - startGame suite
 test('starting tetris should spawn an active pc', () => {
+    // dependencies
     const dom_tetris = screen.getByTestId('tetris_cont');
+    const dom_startGame = screen.getByTestId('startGame');
+
 
     const prefirePcs = getPcs(dom_tetris);
     expect(prefirePcs.activePcsList.length).toBe(0);
-
-    const dom_startGame = screen.getByTestId('startGame');
+    
     fireEvent.click(dom_startGame);
 
     const postfirePcs = getPcs(dom_tetris);
     expect(postfirePcs.activePcsList.length).toBeGreaterThanOrEqual(1);
 });
 
-// only an ended && reset game would have no pcs in play
-// here I can only test that it's gonna be the same piece
-// I don't know how to determine the listener didn't dispatch another start action
-// I can shift the piece by one
-test('tetris should only start if there are no pcs in play', () => {
+test('should only start if there are no pcs in play', () => {
+    // dependencies
     const dom_tetris = screen.getByTestId('tetris_cont');
-
     const dom_startGame = screen.getByTestId('startGame');
-    fireEvent.click(dom_startGame);
-
     const dom_downCtrl = screen.getByTestId('control_down');
-    fireEvent.click(dom_downCtrl);
-
-    const prefirePcs = getPcs(dom_tetris);
-
-    // attempt to start the game while the game is already started 
+    
+    // [0] - start game
     fireEvent.click(dom_startGame);
-
+    // [1] - move the pc
+    fireEvent.click(dom_downCtrl);
+    // [2] - get pc state
+    const prefirePcs = getPcs(dom_tetris);
+    // [3] - fire another start game event
+    fireEvent.click(dom_startGame);
+    // [4] - get pc state post firing start
     const postfirePcs = getPcs(dom_tetris);
-
+    // [5] - expect that the game hasn't been mutated by start event
     expect(prefirePcs.activePcsList).toEqual(postfirePcs.activePcsList);
 });
 
 //====================
 // [] - endGame suite
-test('ending tetris should freeze active pc and prevent movement', () => undefined);
+test('ending tetris should freeze active pc and prevent movement', () => {
+    // dependencies
+    const dom_tetris = screen.getByTestId('tetris_cont');
+    const dom_startGame = screen.getByTestId('startGame');
+    const dom_endGame = screen.getByTestId('endGame');
+    const dom_downCtrl = screen.getByTestId('control_down');
+    
+    // [0] - start game
+    fireEvent.click(dom_startGame);
+    // [1] - sanity check that game has started 
+    const prefirePcs = getPcs(dom_tetris);
+    expect(prefirePcs.activePcsList.length).toBeGreaterThanOrEqual(1);
+    // [2] - end the game
+    fireEvent.click(dom_endGame);
+    // [3] - attempt to move the pc
+    fireEvent.click(dom_downCtrl);
+    // [4] - fetch pc post firing movement
+    const postfirePcs = getPcs(dom_tetris);
+    // [4] - expect the pc to stay put
+    expect(postfirePcs.activePcsList).toEqual(prefirePcs.activePcsList);
+});
 // vvv - leave this one for later, when I start doing drop interval testing
 test('ending tetris should stop active pc from dropping asynchronously', () => undefined);
 

@@ -166,7 +166,7 @@ return (
             }}
             >End Game</button>
 
-            <button className='helpers_btn' ref={resetGameButtonBlurRef} data-testid='endGame'
+            <button className='helpers_btn' ref={resetGameButtonBlurRef} data-testid='resetGame'
             onClick={() => {
                 dispatchBoard({type: BOARD_ACTIONS.RESET});
                 resetGameButtonBlurRef.current.blur();
