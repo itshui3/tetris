@@ -20,12 +20,12 @@ test('starting tetris should spawn an active pc', () => {
     const dom_tetris = screen.getByTestId('tetris_cont');
     const dom_startGame = screen.getByTestId('startGame');
 
-
+    // [0] - sanity check that board starts empty
     const prefirePcs = getPcs(dom_tetris);
     expect(prefirePcs.activePcsList.length).toBe(0);
-    
+    // [1] - start game
     fireEvent.click(dom_startGame);
-
+    // [2] - expect there to be pieces
     const postfirePcs = getPcs(dom_tetris);
     expect(postfirePcs.activePcsList.length).toBeGreaterThanOrEqual(1);
 });
