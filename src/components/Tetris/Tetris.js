@@ -154,7 +154,6 @@ return (
         <div className='helpers_cont'>
             <button className='helpers_btn' ref={startGameButtonBlurRef} data-testid='startGame'
             onClick={() => {
-                console.log('startGame btn handling');
                 dispatchBoard({type: BOARD_ACTIONS.START});
                 startGameButtonBlurRef.current.blur();
             }}

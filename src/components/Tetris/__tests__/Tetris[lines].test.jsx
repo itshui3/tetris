@@ -10,11 +10,6 @@ import { lineBoard } from '../assets/lineBoard';
 
 import { getPcs } from '../../../helpers/spec/getPcs';
 
-/*
-[] - init a board where a line is ready to be filled
-[] - 
-*/
-
 const lastLinePreStatic = [[23, 0], [23, 1], [23, 2], [23, 3], [23, 4], [23, 6], [23, 7], [23, 8], [23, 9]];
 const lastLinePostStatic = [[22, 5], [23, 5]];
 
@@ -32,6 +27,8 @@ test('yeet-0', () => {
     const dom_tetris = screen.getByTestId('tetris_cont');
 
     const preLinePcs = getPcs(dom_tetris);
+
+    console.log(preLinePcs.activePcsList, 'actives');
 
     expect(preLinePcs.staticPcsList).toEqual(lastLinePreStatic);
 
