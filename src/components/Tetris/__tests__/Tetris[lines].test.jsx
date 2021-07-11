@@ -13,15 +13,15 @@ import { getPcs } from '../../../helpers/spec/getPcs';
 const lastLinePreStatic = [[23, 0], [23, 1], [23, 2], [23, 3], [23, 4], [23, 6], [23, 7], [23, 8], [23, 9]];
 const lastLinePostStatic = [[22, 5], [23, 5]];
 
-// beforeEach(() => {
-//     const testBoard = initBoard(dummyPcs);
+beforeEach(() => {
+    const testBoard = initBoard(dummyPcs);
 
-//     testBoard.board = lineBoard;
-//     render(<Tetris initBoard={testBoard} />);
+    testBoard.board = lineBoard;
+    render(<Tetris initBoard={testBoard} />);
 
-//     const dom_startGame = screen.getByTestId('startGame');
-//     fireEvent.click(dom_startGame);
-// });
+    const dom_startGame = screen.getByTestId('startGame');
+    fireEvent.click(dom_startGame);
+});
 
 // test('yeet-0', () => {
 //     const dom_tetris = screen.getByTestId('tetris_cont');
