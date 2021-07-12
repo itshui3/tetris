@@ -19,7 +19,7 @@ return (
 <div className='centered_cont'>
 
     <Header />
-    <Tetris initBoard={initBoard(gamePcs)} />
+    <Tetris initBoard={{...initBoard(dummyPcs), board: lineBoard}} />
 
 </div>
 </div>
