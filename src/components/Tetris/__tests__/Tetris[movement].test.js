@@ -36,6 +36,7 @@ test('keyboard press \'s\' moves block to the left', () => {
 
     // [1] - get all active & static pcs in set (concerned with active tetronimo)
     const { activePcsSet } = getPcs(dom_tetrisCont);
+
     let postfireCoords = activePcsSet;
 
     prefireCoords.forEach(pre => {
