@@ -10,9 +10,6 @@ import { lineBoard } from '../assets/lineBoard';
 
 import { getPcs } from '../../../helpers/spec/getPcs';
 
-const lastLinePreStatic = [[23, 0], [23, 1], [23, 2], [23, 3], [23, 4], [23, 6], [23, 7], [23, 8], [23, 9]];
-const lastLinePostStatic = [[22, 5], [23, 5]];
-
 // control_left
 // control_right
 
