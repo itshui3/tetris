@@ -39,7 +39,7 @@ const lineActions = {
     'update': BOARD_ACTIONS.UPDATE,
 };
 
-function Tetris({ initBoard }) {
+function Tetris({ initBoard, dropSpeed }) {
 
     const startGameButtonBlurRef = useRef();
     const killActiveButtonBlurRef = useRef();
@@ -49,6 +49,7 @@ function Tetris({ initBoard }) {
     const [boardState, dispatchBoard] = useTetris(boardReducer, initBoard);
     const [dropInt, setDropInt] = useState(null);
 
+    const dropFrequency = dropSpeed || 500;
     // dropInterval
     useEffect(() => {
 
@@ -57,7 +58,7 @@ function Tetris({ initBoard }) {
         setDropInt( setInterval(() => {
 
             dispatchBoard({ type: BOARD_ACTIONS.DOWN });
-        }, 500) );
+        }, dropFrequency) );
 
     } else {
         if (dropInt) {
