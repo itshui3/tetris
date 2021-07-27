@@ -23,8 +23,14 @@ test('starting tetris should provoke invocations of drop async', async () => {
 
     const before = getPcs(dom_tetris);
 
+    // steps before piece arrives at 2nd last row
+    const steps = 22 - before.activePcsList.reduce((prev, cur) => {
+        if (cur > prev) return cur;
+        return prev;
+    }, 0);
+
     // test for no-drop, and then 15 drops
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < steps+1; i++) {
     // [1] - waitFor dropInterval to pass
         await waitFor(() => {
     // [2] - fetch pcs within async
